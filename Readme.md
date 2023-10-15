@@ -1,0 +1,1 @@
+Implementation of a game for the OOP subject in the form of labs.
