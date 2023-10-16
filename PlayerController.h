@@ -21,6 +21,7 @@ public:
     void modifyScore(int points);
     void modifyDamage(int value);
 
+    void setCoordinates(std::pair<int, int> coords);
     std::pair<int,int> getCoordinates();
 };
 

@@ -19,16 +19,16 @@ Cell **GameField::fieldAlloc(int width, int height)
     return field;
 }
 
-GameField::GameField(int width, int height, int entranceX, int entranceY, int exitX, int exitY)
+GameField::GameField(int width, int height, std::pair<int, int> entrance, std::pair<int, int> exit)
 {
     normalization(width, height);
     this->width = width;
     this->height = height;
     field = fieldAlloc(width, height);
-    if (valid(entranceX, entranceY))
-        entrance = std::make_pair(entranceX, entranceY);
-    if (valid(exitX, exitY))
-        exit = std::make_pair(exitX, exitY);
+    if (valid(entrance))
+        this->entrance = entrance;
+    if (valid(exit))
+        this->exit = exit;
 }
 
 GameField::GameField(const GameField &other) : width(other.width), height(other.height), entrance(other.entrance), exit(other.exit)
@@ -41,7 +41,7 @@ GameField::GameField(const GameField &other) : width(other.width), height(other.
     }
 }
 
-GameField::GameField(GameField &&other) noexcept : width(0), height(0), entrance(0, 0), exit(0, 0), field(nullptr)
+GameField::GameField(GameField &&other) noexcept : width(0), height(0), entrance({0, 0}), exit({0, 0}), field(nullptr)
 {
     std::swap(width, other.width);
     std::swap(height, other.height);
@@ -99,32 +99,32 @@ GameField::~GameField()
     }
 }
 
-bool GameField::valid(int x, int y)
+bool GameField::valid(std::pair<int, int> coords)
 {
-    if (x < 0 || y < 0 || x >= width || y >= height)
+    if (coords.first < 0 || coords.second < 0 || coords.first >= width || coords.second >= height)
         return false;
     return true;
 }
 
-Cell &GameField::getCell(int x, int y)
+Cell &GameField::getCell(std::pair<int, int> coords)
 {
-    if (!valid(x, y))
+    if (!valid(coords))
         throw std::out_of_range("Invalid cell coordinates");
-    return field[y][x];
+    return field[coords.second][coords.first];
 }
 
-void GameField::setEntrance(int x, int y)
+void GameField::setEntrance(std::pair<int, int> coords)
 {
-    if (!valid(x, y))
+    if (!valid(coords))
         throw std::out_of_range("Invalid entrance coordinates");
-    entrance = std::make_pair(x, y);
+    entrance = coords;
 }
 
-void GameField::setExit(int x, int y)
+void GameField::setExit(std::pair<int, int> coords)
 {
-    if (!valid(x, y))
+    if (!valid(coords))
         throw std::out_of_range("Invalid exit coordinates");
-    exit = std::make_pair(x, y);
+    exit = coords;
 }
 
 std::pair<int, int> GameField::getEntrance()

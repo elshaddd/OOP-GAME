@@ -2,7 +2,7 @@
 
 Cell::Cell(bool passable) : passability(passable), event(nullptr) {}
 
-Cell::Cell(const Cell &other) : passability(other.passability), event(other.event ? new Event(*other.event) : nullptr) {}
+Cell::Cell(const Cell &other) : passability(other.passability), event(other.event ? other.event->clone() : nullptr) {}
 
 Cell::Cell(Cell &&other) noexcept : passability(false), event(nullptr)
 {
@@ -14,7 +14,7 @@ Cell &Cell::operator=(const Cell &other)
 {
     delete event;
     passability = other.passability;
-    event = other.event ? new Event(*other.event) : nullptr;
+    event = other.event ? other.event->clone() : nullptr;
     return *this;
 }
 

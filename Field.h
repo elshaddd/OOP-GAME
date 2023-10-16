@@ -19,7 +19,7 @@ private:
     std::pair<int, int> exit;
 
 public:
-    GameField(int width = MIN_WIDTH, int height = MIN_HEIGHT, int entranceX = 0, int entranceY = 0, int exitX = MIN_WIDTH - 1, int exitY = MIN_HEIGHT - 1);
+    GameField(int width = MIN_WIDTH, int height = MIN_HEIGHT, std::pair<int, int> entrance = {0, 0}, std::pair<int, int> exit = {MIN_WIDTH - 1, MIN_HEIGHT - 1});
 
     void normalization(int &width, int &height);
 
@@ -35,13 +35,13 @@ public:
 
     ~GameField();
 
-    bool valid(int x, int y);
+    bool valid(std::pair<int, int> coords);
 
-    Cell &getCell(int x, int y);
+    Cell &getCell(std::pair<int, int> coords);
 
-    void setEntrance(int x, int y);
+    void setEntrance(std::pair<int, int> coords);
 
-    void setExit(int x, int y);
+    void setExit(std::pair<int, int> coords);
 
     std::pair<int, int> getEntrance();
 
