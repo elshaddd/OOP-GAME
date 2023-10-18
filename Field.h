@@ -6,8 +6,8 @@
 #include <algorithm>
 #include <iostream>
 
-#define MAX_HEIGHT 51
-#define MAX_WIDTH 101
+#define MAX_HEIGHT 55
+#define MAX_WIDTH 115
 #define MIN_HEIGHT 11
 #define MIN_WIDTH 23
 
@@ -35,6 +35,8 @@ public:
     GameField &operator=(GameField &&other) noexcept;
 
     ~GameField();
+
+    void resize(int w, int h);
 
     bool valid(std::pair<int, int> coords);
 
