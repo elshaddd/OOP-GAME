@@ -1,0 +1,1 @@
+g++ *.cpp .\Events\NegativeEvents\*.cpp .\Events\PositiveEvents\*.cpp .\Events\NeutralEvents\*.cpp .\Generators*.cpp

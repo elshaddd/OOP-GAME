@@ -28,7 +28,7 @@ GameField::GameField(int width, int height, std::pair<int, int> entrance, std::p
     if (valid(entrance))
         this->entrance = entrance;
     if (valid(exit))
-        this->exit = exit;
+        this->exit = std::make_pair(width - 2, height - 2);
 }
 
 GameField::GameField(const GameField &other) : width(other.width), height(other.height), entrance(other.entrance), exit(other.exit)
@@ -160,31 +160,4 @@ void GameField::setExit(std::pair<int, int> coords)
     if (!valid(coords))
         throw std::out_of_range("Invalid exit coordinates");
     exit = coords;
-}
-
-void GameField::printMaze()
-{
-    for (int i = 0; i < height; i++)
-    {
-        for (int j = 0; j < width; j++)
-        {
-            if (std::make_pair(j, i) == getEntrance())
-            {
-                std::cout << "]" << ' ';
-            }
-            else if (std::make_pair(j, i) == getExit())
-            {
-                std::cout << "[" << ' ';
-            }
-            else if (field[i][j].isPassable())
-            {
-                std::cout << " " << ' ';
-            }
-            else
-            {
-                std::cout << "*" << ' ';
-            }
-        }
-        std::cout << "\n";
-    }
 }

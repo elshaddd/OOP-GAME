@@ -2,14 +2,14 @@
 #define CELL_H
 #include <algorithm>
 #include <vector>
-#include "Event.h"
+#include "./Events/Event.h"
 
 class Cell
 {
 private:
     bool passability;
-    Event *event; 
-    std::vector<Cell *> neighbours;
+    Event *event;
+
 public:
     Cell(bool passable = false);
 
@@ -25,10 +25,13 @@ public:
 
     void setPassability(bool passable);
 
+    void setEvent(Event *newEvent);
+
     bool isPassable();
 
-    void addNeighbour(Cell *neighbour);
+    Event *getEvent();
 
     friend class FieldGenerator;
 };
+
 #endif

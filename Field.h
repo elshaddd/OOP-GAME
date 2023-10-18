@@ -6,10 +6,10 @@
 #include <algorithm>
 #include <iostream>
 
-#define MAX_HEIGHT 100
-#define MAX_WIDTH 200
-#define MIN_HEIGHT 25
-#define MIN_WIDTH 51
+#define MAX_HEIGHT 51
+#define MAX_WIDTH 101
+#define MIN_HEIGHT 11
+#define MIN_WIDTH 23
 
 class GameField
 {
@@ -53,8 +53,6 @@ public:
     void setEntrance(std::pair<int, int> coords);
 
     void setExit(std::pair<int, int> coords);
-
-    void printMaze();
 
     friend class FieldGenerator;
 };

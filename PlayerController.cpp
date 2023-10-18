@@ -25,6 +25,11 @@ void PlayerController::movePlayer(Direction direction)
     if (gameFieldRef.valid(temp) && gameFieldRef.getCell(temp).isPassable())
     {
         coordinates = temp;
+        Event *event = gameFieldRef.getCell(coordinates).getEvent();
+        if (event != nullptr)
+        {
+            event->OnPlayerStep(*this);
+        }
     }
 }
 
@@ -32,6 +37,11 @@ void PlayerController::modifyHealth(int value)
 {
     int currentHealth = playerRef.getHealth();
     playerRef.setHealth(currentHealth + value);
+    if (playerRef.getHealth() == 0)
+    {
+        std::cout << "GAME OVER\n";
+        std::exit(0);
+    }
 }
 
 void PlayerController::modifyScore(int points)
@@ -48,8 +58,10 @@ void PlayerController::modifyDamage(int value)
 
 void PlayerController::setCoordinates(std::pair<int, int> coords)
 {
-    if (gameFieldRef.valid(coords)){
-        coordinates = coords;
+    if (gameFieldRef.valid(coords))
+    {
+        if (gameFieldRef.getCell(coords).isPassable())
+            coordinates = coords;
     }
 }
 
