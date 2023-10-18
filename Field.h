@@ -4,11 +4,12 @@
 #include <utility>
 #include <stdexcept>
 #include <algorithm>
+#include <iostream>
 
 #define MAX_HEIGHT 100
 #define MAX_WIDTH 200
-#define MIN_HEIGHT 30
-#define MIN_WIDTH 60
+#define MIN_HEIGHT 25
+#define MIN_WIDTH 51
 
 class GameField
 {
@@ -19,7 +20,7 @@ private:
     std::pair<int, int> exit;
 
 public:
-    GameField(int width = MIN_WIDTH, int height = MIN_HEIGHT, std::pair<int, int> entrance = {0, 0}, std::pair<int, int> exit = {MIN_WIDTH - 1, MIN_HEIGHT - 1});
+    GameField(int width = MIN_WIDTH, int height = MIN_HEIGHT, std::pair<int, int> entrance = {1, 1}, std::pair<int, int> exit = {MIN_WIDTH - 2, MIN_HEIGHT - 2});
 
     void normalization(int &width, int &height);
 
@@ -39,13 +40,23 @@ public:
 
     Cell &getCell(std::pair<int, int> coords);
 
-    void setEntrance(std::pair<int, int> coords);
+    std::pair<int, int> getCoords(const Cell &cell);
 
-    void setExit(std::pair<int, int> coords);
+    int getWidth();
+
+    int getHeight();
 
     std::pair<int, int> getEntrance();
 
     std::pair<int, int> getExit();
+
+    void setEntrance(std::pair<int, int> coords);
+
+    void setExit(std::pair<int, int> coords);
+
+    void printMaze();
+
+    friend class FieldGenerator;
 };
 
 #endif

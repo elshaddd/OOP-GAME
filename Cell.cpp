@@ -34,6 +34,7 @@ Cell &Cell::operator=(Cell &&other) noexcept
 Cell::~Cell()
 {
     delete event;
+    neighbours.clear();
 }
 
 void Cell::setPassability(bool passable)
@@ -44,4 +45,9 @@ void Cell::setPassability(bool passable)
 bool Cell::isPassable()
 {
     return passability;
+}
+
+void Cell::addNeighbour(Cell *neighbour)
+{
+    neighbours.push_back(neighbour);
 }

@@ -113,6 +113,41 @@ Cell &GameField::getCell(std::pair<int, int> coords)
     return field[coords.second][coords.first];
 }
 
+std::pair<int, int> GameField::getCoords(const Cell &cell)
+{
+    for (int i = 0; i < height; ++i)
+    {
+        for (int j = 0; j < width; ++j)
+        {
+            if (&field[i][j] == &cell)
+            {
+                return {j, i};
+            }
+        }
+    }
+    throw std::invalid_argument("Cell does not exist in this field");
+}
+
+int GameField::getWidth()
+{
+    return width;
+}
+
+int GameField::getHeight()
+{
+    return height;
+}
+
+std::pair<int, int> GameField::getEntrance()
+{
+    return entrance;
+}
+
+std::pair<int, int> GameField::getExit()
+{
+    return exit;
+}
+
 void GameField::setEntrance(std::pair<int, int> coords)
 {
     if (!valid(coords))
@@ -127,12 +162,29 @@ void GameField::setExit(std::pair<int, int> coords)
     exit = coords;
 }
 
-std::pair<int, int> GameField::getEntrance()
+void GameField::printMaze()
 {
-    return entrance;
-}
-
-std::pair<int, int> GameField::getExit()
-{
-    return exit;
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            if (std::make_pair(j, i) == getEntrance())
+            {
+                std::cout << "]" << ' ';
+            }
+            else if (std::make_pair(j, i) == getExit())
+            {
+                std::cout << "[" << ' ';
+            }
+            else if (field[i][j].isPassable())
+            {
+                std::cout << " " << ' ';
+            }
+            else
+            {
+                std::cout << "*" << ' ';
+            }
+        }
+        std::cout << "\n";
+    }
 }

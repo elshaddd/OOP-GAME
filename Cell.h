@@ -1,15 +1,17 @@
 #ifndef CELL_H
 #define CELL_H
 #include <algorithm>
+#include <vector>
 #include "Event.h"
 
 class Cell
 {
 private:
     bool passability;
-    Event *event; // предполагается, что Event - это некий класс события.
+    Event *event; 
+    std::vector<Cell *> neighbours;
 public:
-    Cell(bool passable = true);
+    Cell(bool passable = false);
 
     Cell(const Cell &other);
 
@@ -24,6 +26,9 @@ public:
     void setPassability(bool passable);
 
     bool isPassable();
-};
 
+    void addNeighbour(Cell *neighbour);
+
+    friend class FieldGenerator;
+};
 #endif
