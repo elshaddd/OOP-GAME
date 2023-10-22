@@ -1,8 +1,6 @@
 #ifndef POSITIVE_HEALTH_EVENT_H
 #define POSITIVE_HEALTH_EVENT_H
 #include "../Event.h"
-#include "../../PlayerController.h"
-#include <utility>
 
 class PositiveHealthEvent : public Event
 {

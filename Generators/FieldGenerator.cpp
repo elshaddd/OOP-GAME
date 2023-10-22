@@ -4,11 +4,16 @@
 #include "FieldGenerator.h"
 
 /**
- * The FieldGenerator class constructor initializes a reference to a GameField object.
- *
+ * The FieldGenerator constructor initializes a random number generator using a random device and
+ * assigns it to the gen member variable.
+ * 
  * @param gameField The gameField parameter is a reference to an object of type GameField.
  */
-FieldGenerator::FieldGenerator(GameField &gameField) : gameFieldRef(gameField) {}
+FieldGenerator::FieldGenerator(GameField &gameField) : gameFieldRef(gameField)
+{
+    std::random_device rd;
+    gen = std::mt19937(rd());
+}
 
 /**
  * The function removes a wall between two cells in a game field.
@@ -30,33 +35,6 @@ void FieldGenerator::removeWall(Cell *a, Cell *b)
     if (yDiff == 2 || yDiff == -2)
     {
         gameFieldRef.field[aCoords.second - (yDiff / 2)][aCoords.first].setPassability(true);
-    }
-}
-
-/**
- * The function "generateField" generates a maze by populating the neighbours of each cell and
- * processing the maze cells.
- */
-void FieldGenerator::generateField()
-{
-    populateNeighbours();
-    processMazeCells();
-    fillByEvents();
-}
-
-/**
- * The function `populateNeighbours` iterates through each cell in a game field and retrieves its
- * neighboring cells.
- */
-void FieldGenerator::populateNeighbours()
-{
-    for (int y = 0; y < gameFieldRef.getHeight(); y++)
-    {
-        for (int x = 0; x < gameFieldRef.getWidth(); x++)
-        {
-            Cell &currentCell = gameFieldRef.getCell({x, y});
-            std::vector<Cell *> neighbours = getNeighbours(currentCell);
-        }
     }
 }
 
@@ -94,10 +72,7 @@ void FieldGenerator::processMazeCells()
 {
     Cell *start = &gameFieldRef.getCell({START_CELL_X, START_CELL_Y});
     cellStack.push(start);
-
     start->setPassability(true);
-    std::random_device rd;
-    std::mt19937 gen(rd());
     while (!cellStack.empty())
     {
         Cell *current = cellStack.top();
@@ -125,15 +100,32 @@ void FieldGenerator::processMazeCells()
 }
 
 /**
- * The destructor for the FieldGenerator class deletes all elements in the cellStack.
+ * The getRandomEvent function generates a random event from a predefined list of events.
+ * 
+ * @return a pointer to an Event object.
  */
-FieldGenerator::~FieldGenerator()
+Event *FieldGenerator::getRandomEvent()
 {
-    while (!cellStack.empty())
-    {
-        delete cellStack.top();
-        cellStack.pop();
-    }
+    std::uniform_int_distribution<int> distributionY(START_CELL_X + 1, gameFieldRef.getHeight() - 1);
+    std::uniform_int_distribution<int> distributionX(START_CELL_Y + 1, gameFieldRef.getWidth() - 1);
+
+    int randomY = distributionY(gen);
+    int randomX = distributionX(gen);
+
+    static Event *events[] = {
+        new NegativeDamageEvent(),
+        new NegativeHealthEvent(),
+        new NegativeScoreEvent(),
+        new NeutralCoordsEvent(std::make_pair(randomX, randomY)),
+        new PositiveDamageEvent(),
+        new PositiveHealthEvent(),
+        new PositiveScoreEvent()};
+
+    int numEvents = sizeof(events) / sizeof(events[0]);
+    std::uniform_int_distribution<int> distribution(0, numEvents - 1);
+
+    int randomIndex = distribution(gen);
+    return events[randomIndex]->clone();
 }
 
 /**
@@ -144,10 +136,8 @@ FieldGenerator::~FieldGenerator()
 void FieldGenerator::fillByEvents()
 {
     Cell *start = &gameFieldRef.getCell({START_CELL_X, START_CELL_Y});
-    std::stack<Cell *> cellStack;
     cellStack.push(start);
 
-    // Create a set to track visited cells
     std::set<Cell *> visitedCells;
     int passableCellCount = 0;
     while (!cellStack.empty())
@@ -155,7 +145,7 @@ void FieldGenerator::fillByEvents()
         Cell *current = cellStack.top();
         cellStack.pop();
 
-        visitedCells.insert(current); // Mark the cell as visited
+        visitedCells.insert(current);
 
         std::vector<Cell *> neighbours = getNeighbours(*current);
         for (auto neighbour : neighbours)
@@ -165,7 +155,6 @@ void FieldGenerator::fillByEvents()
                 passableCellCount++;
                 if (passableCellCount % 10 == 0)
                 {
-                    // Set the event on every eighth passable cell
                     current->setEvent(getRandomEvent());
                 }
                 cellStack.push(neighbour);
@@ -175,40 +164,22 @@ void FieldGenerator::fillByEvents()
 }
 
 /**
- * The getRandomEvent function generates a random event from a predefined list of events and returns a
- * pointer to the selected event.
- *
- * @return a pointer to a randomly selected Event object.
+ * The generateField function processes maze cells and fills them with events.
  */
-Event *FieldGenerator::getRandomEvent()
+void FieldGenerator::generateField()
 {
-    std::mt19937 rng1(static_cast<unsigned int>(std::time(0)));
-    std::uniform_int_distribution<int> distribution1(1, gameFieldRef.getHeight());
-    int randomY = distribution1(rng1);
-    // std::mt19937 rng2(static_cast<unsigned int>(std::time(0)));
-    std::uniform_int_distribution<int> distribution2(1, gameFieldRef.getWidth());
-    int randomX = distribution2(rng1);
+    processMazeCells();
+    fillByEvents();
+}
 
-    // Создайте массив указателей на события
-    Event *events[] = {
-        new NegativeDamageEvent(),
-        new NegativeHealthEvent(),
-        new NegativeScoreEvent(),
-        new NeutralCoordsEvent(std::make_pair(randomX, randomY)),
-        new PositiveDamageEvent(),
-        new PositiveHealthEvent(),
-        new PositiveScoreEvent()};
-
-    // Получите количество событий
-    int numEvents = sizeof(events) / sizeof(events[0]);
-
-    // Инициализируйте генератор случайных чисел
-    // std::mt19937 rng(static_cast<unsigned int>(std::time(0)));
-    std::uniform_int_distribution<int> distribution(0, numEvents - 1);
-
-    // Генерируйте случайное число для выбора события
-    int randomIndex = distribution(rng1);
-
-    // Верните указатель на случайное событие
-    return events[randomIndex]->clone();
+/**
+ * The destructor for the FieldGenerator class deletes all elements in the cellStack.
+ */
+FieldGenerator::~FieldGenerator()
+{
+    while (!cellStack.empty())
+    {
+        delete cellStack.top();
+        cellStack.pop();
+    }
 }

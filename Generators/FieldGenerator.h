@@ -39,13 +39,13 @@ private:
 
     void removeWall(Cell *a, Cell *b);
 
-    void populateNeighbours();
-
     void processMazeCells();
 
     void fillByEvents();
 
     Event *getRandomEvent();
+
+    std::mt19937 gen;
 };
 
 #endif

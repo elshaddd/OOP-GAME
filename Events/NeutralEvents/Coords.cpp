@@ -1,4 +1,5 @@
 #include "Coords.h"
+#include "../../PlayerController.h"
 
 NeutralCoordsEvent::NeutralCoordsEvent(std::pair<int, int> coords) : newCoordinates(coords) {}
 

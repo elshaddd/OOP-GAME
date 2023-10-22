@@ -25,7 +25,6 @@ int main()
         {
             gameField.resize(k * 23, k * 11);
         }
-        std::cout << gameField.getWidth() << ' ' << gameField.getHeight() << '\n';
         {
             FieldGenerator generator(gameField);
             generator.generateField();
@@ -59,6 +58,7 @@ int main()
         }
         k++;
         numsOfLevels--;
-        system("pause");
+        std::cout << "Press enter to continue ...";
+        std::cin.get();
     }
 }

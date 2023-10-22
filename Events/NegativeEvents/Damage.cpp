@@ -1,4 +1,5 @@
 #include "Damage.h"
+#include "../../PlayerController.h"
 
 void NegativeDamageEvent::OnPlayerStep(PlayerController &controller)
 {

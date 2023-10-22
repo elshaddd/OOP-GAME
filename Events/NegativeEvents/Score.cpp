@@ -1,4 +1,5 @@
 #include "Score.h"
+#include "../../PlayerController.h"
 
 void NegativeScoreEvent::OnPlayerStep(PlayerController &controller)
 {

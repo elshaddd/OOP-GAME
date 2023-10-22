@@ -1,11 +1,8 @@
 #ifndef NEGATIVE_HEALTH_EVENT_H
 #define NEGATIVE_HEALTH_EVENT_H
-// #include "../Event.h"
-// #include "../../PlayerController.h"
-// #include <utility>
-#include "NegativeEvent.h"
+#include "../Event.h"
 
-class NegativeHealthEvent : public NegativeEvent
+class NegativeHealthEvent : public Event
 {
 public:
     void OnPlayerStep(PlayerController &controller) override;

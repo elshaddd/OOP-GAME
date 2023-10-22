@@ -1,8 +1,6 @@
 #ifndef NEUTRAL_COORDS_EVENT_H
 #define NEUTRAL_COORDS_EVENT_H
 #include "../Event.h"
-#include "../../PlayerController.h"
-#include <utility>
 
 class NeutralCoordsEvent : public Event
 {

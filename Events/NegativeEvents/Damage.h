@@ -1,10 +1,8 @@
 #ifndef NEGATIVE_DAMAGE_EVENT_H
 #define NEGATIVE_DAMAGE_EVENT_H
-#include "NegativeEvent.h"
-// #include "../../PlayerController.h"
-// #include <utility>
+#include "../Event.h"
 
-class NegativeDamageEvent : public NegativeEvent
+class NegativeDamageEvent : public Event
 {
 public:
     void OnPlayerStep(PlayerController &controller) override;
