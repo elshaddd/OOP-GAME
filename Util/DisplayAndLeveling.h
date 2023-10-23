@@ -18,15 +18,56 @@ void leveling(GameField &gameField, PlayerController &controller, int &level)
     controller.setCoordinates({1, 1});
 }
 
+// void display(GameField &gameField, PlayerController &controller, int &level)
+// {
+//     for (int i = 0; i < gameField.getHeight(); i++)
+//     {
+//         for (int j = 0; j < gameField.getWidth(); j++)
+//         {
+//             if (controller.getCoordinates().first == j && controller.getCoordinates().second == i)
+//             {
+//                 std::cout << "p" << ' ';
+//                 if (controller.getCoordinates() == gameField.getExit())
+//                 {
+//                     leveling(gameField, controller, ++level);
+//                 }
+//             }
+//             else if (std::make_pair(j, i) == gameField.getEntrance())
+//             {
+//                 std::cout << "]" << ' ';
+//             }
+//             else if (std::make_pair(j, i) == gameField.getExit())
+//             {
+//                 std::cout << "[" << ' ';
+//             }
+//             else if (gameField.getCell(std::make_pair(j, i)).getEvent() != nullptr)
+//             {
+//                 std::cout << "?" << ' ';
+//             }
+//             else if (gameField.getCell(std::make_pair(j, i)).isPassable())
+//             {
+//                 std::cout << " " << ' ';
+//             }
+
+//             else
+//             {
+//                 std::cout << "*" << ' ';
+//             }
+//         }
+//         std::cout << "\n";
+//     }
+// }
+
 void display(GameField &gameField, PlayerController &controller, int &level)
 {
+    std::string buffer;
     for (int i = 0; i < gameField.getHeight(); i++)
     {
         for (int j = 0; j < gameField.getWidth(); j++)
         {
             if (controller.getCoordinates().first == j && controller.getCoordinates().second == i)
             {
-                std::cout << "p" << ' ';
+                buffer += "p ";
                 if (controller.getCoordinates() == gameField.getExit())
                 {
                     leveling(gameField, controller, ++level);
@@ -34,26 +75,27 @@ void display(GameField &gameField, PlayerController &controller, int &level)
             }
             else if (std::make_pair(j, i) == gameField.getEntrance())
             {
-                std::cout << "]" << ' ';
+                buffer += "] ";
             }
             else if (std::make_pair(j, i) == gameField.getExit())
             {
-                std::cout << "[" << ' ';
+                buffer += "[ ";
             }
             else if (gameField.getCell(std::make_pair(j, i)).getEvent() != nullptr)
             {
-                std::cout << "?" << ' ';
+                buffer += "? ";
             }
             else if (gameField.getCell(std::make_pair(j, i)).isPassable())
             {
-                std::cout << " " << ' ';
+                buffer += "  ";
             }
 
             else
             {
-                std::cout << "*" << ' ';
+                buffer += "* ";
             }
         }
-        std::cout << "\n";
+        buffer += "\n";
     }
+    std::cout << buffer;
 }

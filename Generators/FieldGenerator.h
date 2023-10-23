@@ -16,7 +16,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <random>
-
+const int EVENT_FREQ = 15;
 const int NEIGHBOUR_OFFSET = 2;
 const int START_CELL_X = 1;
 const int START_CELL_Y = 1;

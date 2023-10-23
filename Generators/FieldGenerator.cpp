@@ -160,7 +160,7 @@ void FieldGenerator::fillByEvents()
             if (neighbour->isPassable() && visitedCells.find(neighbour) == visitedCells.end())
             {
                 passableCellCount++;
-                if (passableCellCount % 10 == 0)
+                if (passableCellCount % EVENT_FREQ == 0)
                 {
                     current->setEvent(getRandomEvent());
                 }
