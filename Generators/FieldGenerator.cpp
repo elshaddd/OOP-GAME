@@ -6,7 +6,7 @@
 /**
  * The FieldGenerator constructor initializes a random number generator using a random device and
  * assigns it to the gen member variable.
- * 
+ *
  * @param gameField The gameField parameter is a reference to an object of type GameField.
  */
 FieldGenerator::FieldGenerator(GameField &gameField) : gameFieldRef(gameField)
@@ -106,25 +106,32 @@ void FieldGenerator::processMazeCells()
  */
 Event *FieldGenerator::getRandomEvent()
 {
-    std::uniform_int_distribution<int> distributionY(START_CELL_X + 1, gameFieldRef.getHeight() - 1);
-    std::uniform_int_distribution<int> distributionX(START_CELL_Y + 1, gameFieldRef.getWidth() - 1);
-
-    int randomY = distributionY(gen);
-    int randomX = distributionX(gen);
+    std::uniform_int_distribution<int> distributionY(START_CELL_X, gameFieldRef.getHeight() - 2);
+    std::uniform_int_distribution<int> distributionX(START_CELL_Y, gameFieldRef.getWidth() - 2);
 
     static Event *events[] = {
+        new NeutralCoordsEvent({1, 1}),
         new NegativeDamageEvent(),
         new NegativeHealthEvent(),
         new NegativeScoreEvent(),
-        new NeutralCoordsEvent(std::make_pair(randomX, randomY)),
         new PositiveDamageEvent(),
         new PositiveHealthEvent(),
-        new PositiveScoreEvent()};
+        new PositiveScoreEvent()
+    };
 
     int numEvents = sizeof(events) / sizeof(events[0]);
     std::uniform_int_distribution<int> distribution(0, numEvents - 1);
 
     int randomIndex = distribution(gen);
+    if (randomIndex == 0) {
+        int randomX, randomY;
+        do {
+            randomY = distributionY(gen);
+            randomX = distributionX(gen);
+        } while (gameFieldRef.getCell({randomX, randomY}).isPassable() == false);
+        delete events[0];
+        events[0] = new NeutralCoordsEvent(std::make_pair(randomX, randomY));
+    }
     return events[randomIndex]->clone();
 }
 

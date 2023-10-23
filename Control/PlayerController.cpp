@@ -5,6 +5,7 @@ PlayerController::PlayerController(Player &player, GameField &gameField) : playe
 void PlayerController::movePlayer(Direction direction)
 {
     std::pair<int, int> temp = {coordinates.first, coordinates.second};
+    std::pair<int, int> temp1 = {coordinates.first, coordinates.second};
     switch (direction)
     {
     case UP:
@@ -29,6 +30,7 @@ void PlayerController::movePlayer(Direction direction)
         if (event != nullptr)
         {
             event->OnPlayerStep(*this);
+            gameFieldRef.getCell(temp).removeEvent();
         }
     }
 }
@@ -62,6 +64,8 @@ void PlayerController::setCoordinates(std::pair<int, int> coords)
     {
         if (gameFieldRef.getCell(coords).isPassable())
             coordinates = coords;
+        if (gameFieldRef.getCell(coords).getEvent() != nullptr)
+            gameFieldRef.getCell(coords).getEvent()->OnPlayerStep(*this);
     }
 }
 

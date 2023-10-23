@@ -2,7 +2,7 @@
 #define CELL_H
 #include <algorithm>
 #include <vector>
-#include "./Events/Event.h"
+#include "../Events/Event.h"
 
 class Cell
 {
@@ -30,6 +30,8 @@ public:
     bool isPassable();
 
     Event *getEvent();
+
+    void removeEvent();
 
     friend class FieldGenerator;
 };

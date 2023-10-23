@@ -1,9 +1,9 @@
 #ifndef PLAYER_CONTROLLER_H
 #define PLAYER_CONTROLLER_H
 
-#include "Enums.h"
-#include "Player.h"
-#include "Field.h"
+#include "../Util/Enums.h"
+#include "../Player/Player.h"
+#include "../Field/Field.h"
 #include <utility>
 
 class PlayerController

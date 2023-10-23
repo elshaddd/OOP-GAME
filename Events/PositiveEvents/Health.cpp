@@ -1,5 +1,5 @@
 #include "Health.h"
-#include "../../PlayerController.h"
+#include "../../Control/PlayerController.h"
 
 void PositiveHealthEvent::OnPlayerStep(PlayerController &controller)
 {

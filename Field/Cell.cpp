@@ -57,3 +57,10 @@ Event *Cell::getEvent()
 {
     return event;
 }
+
+void Cell::removeEvent() {
+    if(event != nullptr) {
+        delete event;
+        event = nullptr;
+    }
+}

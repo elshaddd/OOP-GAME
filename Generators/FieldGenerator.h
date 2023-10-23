@@ -1,7 +1,7 @@
 #ifndef FIELD_GENERATOR_H
 #define FIELD_GENERATOR_H
 
-#include "../Field.h"
+#include "../Field/Field.h"
 #include "../Events/NegativeEvents/Damage.h"
 #include "../Events/NegativeEvents/Health.h"
 #include "../Events/NegativeEvents/Score.h"
