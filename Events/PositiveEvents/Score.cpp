@@ -10,3 +10,8 @@ Event *PositiveScoreEvent::clone()
 {
     return new PositiveScoreEvent(*this);
 }
+
+char PositiveScoreEvent::accept(EventVisitor& visitor)
+{
+    return visitor.visit(*this);
+}

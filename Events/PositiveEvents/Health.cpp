@@ -10,3 +10,8 @@ Event *PositiveHealthEvent::clone()
 {
     return new PositiveHealthEvent(*this);
 }
+
+char PositiveHealthEvent::accept(EventVisitor& visitor)
+{
+    return visitor.visit(*this);
+}

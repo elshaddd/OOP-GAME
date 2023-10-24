@@ -8,6 +8,8 @@ public:
     void OnPlayerStep(PlayerController &controller) override;
 
     Event *clone() override;
+
+    char accept(EventVisitor& visitor) override;
 };
 
 #endif

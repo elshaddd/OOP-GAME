@@ -12,3 +12,8 @@ Event *NeutralCoordsEvent::clone()
 {
     return new NeutralCoordsEvent(*this);
 }
+
+char NeutralCoordsEvent::accept(EventVisitor& visitor)
+{
+    return visitor.visit(*this);
+}

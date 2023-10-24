@@ -13,7 +13,7 @@
 int main()
 {
     GameField gameField;
-    Player player(100, 50, 50);
+    Player player(60, 50, 50);
     PlayerController controller(player, gameField);
     {
         FieldGenerator generator(gameField);

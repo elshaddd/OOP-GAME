@@ -3,6 +3,7 @@
 
 #include "../Control/PlayerController.h"
 #include "../Generators/FieldGenerator.h"
+#include "../Events/Visitor/EventSymbolVisitor.h"
 
 void leveling(GameField &gameField, PlayerController &controller, int &level)
 {
@@ -30,7 +31,7 @@ void display(GameField &gameField, PlayerController &controller, int &level)
         {
             if (controller.getCoordinates().first == j && controller.getCoordinates().second == i)
             {
-                buffer += "p ";
+                buffer += "Y "; //\uD83d\uDE4D 
                 if (controller.getCoordinates() == gameField.getExit())
                 {
                     leveling(gameField, controller, ++level);
@@ -46,7 +47,11 @@ void display(GameField &gameField, PlayerController &controller, int &level)
             }
             else if (gameField.getCell(std::make_pair(j, i)).getEvent() != nullptr)
             {
-                buffer += "? ";
+                // buffer += "? ";
+                EventSymbolVisitor visitor;
+                char symbol = gameField.getCell(std::make_pair(j, i)).getEvent()->accept(visitor);
+                buffer += symbol;
+                buffer += " ";
             }
             else if (gameField.getCell(std::make_pair(j, i)).isPassable())
             {

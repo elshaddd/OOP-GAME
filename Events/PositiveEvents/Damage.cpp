@@ -10,3 +10,8 @@ Event *PositiveDamageEvent::clone()
 {
     return new PositiveDamageEvent(*this);
 }
+
+char PositiveDamageEvent::accept(EventVisitor& visitor)
+{
+    return visitor.visit(*this);
+}

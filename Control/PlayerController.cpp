@@ -66,6 +66,7 @@ void PlayerController::setCoordinates(std::pair<int, int> coords)
             coordinates = coords;
         if (gameFieldRef.getCell(coords).getEvent() != nullptr)
             gameFieldRef.getCell(coords).getEvent()->OnPlayerStep(*this);
+            gameFieldRef.getCell(coords).removeEvent();
     }
 }
 
