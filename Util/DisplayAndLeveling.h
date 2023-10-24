@@ -31,7 +31,7 @@ void display(GameField &gameField, PlayerController &controller, int &level)
         {
             if (controller.getCoordinates().first == j && controller.getCoordinates().second == i)
             {
-                buffer += "Y "; //\uD83d\uDE4D 
+                buffer += "i "; //\uD83d\uDE4D 
                 if (controller.getCoordinates() == gameField.getExit())
                 {
                     leveling(gameField, controller, ++level);
@@ -49,8 +49,8 @@ void display(GameField &gameField, PlayerController &controller, int &level)
             {
                 // buffer += "? ";
                 EventSymbolVisitor visitor;
-                char symbol = gameField.getCell(std::make_pair(j, i)).getEvent()->accept(visitor);
-                buffer += symbol;
+                // char symbol = gameField.getCell(std::make_pair(j, i)).getEvent()->accept(visitor);
+                buffer += gameField.getCell(std::make_pair(j, i)).getEvent()->accept(visitor);
                 buffer += " ";
             }
             else if (gameField.getCell(std::make_pair(j, i)).isPassable())

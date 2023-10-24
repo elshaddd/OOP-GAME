@@ -8,12 +8,12 @@ class Player
 private:
     int health;
     int score;
-    int damage;
+    // int damage;
 
 public:
     // Player();
 
-    Player(int initHealth = 100, int initScore = 0, int initDamage = 5);
+    Player(int initHealth = 100, int initScore = 0/*, int initDamage = 5*/);
 
     // Метод выравнивания характеристик по диапазону
     int normalization(int val, int lowerLimit, int upperLimit);
@@ -25,7 +25,7 @@ public:
     int getScore();
 
     // Метод получения кол-ва урона 
-    int getDamage();
+    // int getDamage();
 
     // Метод изменения здоровья 
     void setHealth(int newHealth);
@@ -34,7 +34,7 @@ public:
     void setScore(int newScore);
 
     // Метод изменения кол-ва урона 
-    void setDamage(int newDamage);
+    // void setDamage(int newDamage);
 };
 
 #endif

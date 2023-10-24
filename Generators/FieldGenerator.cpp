@@ -111,10 +111,10 @@ Event *FieldGenerator::getRandomEvent()
 
     static Event *events[] = {
         new NeutralCoordsEvent({1, 1}),
-        new NegativeDamageEvent(),
+        // new NegativeDamageEvent(),
         new NegativeHealthEvent(),
         new NegativeScoreEvent(),
-        new PositiveDamageEvent(),
+        // new PositiveDamageEvent(),
         new PositiveHealthEvent(),
         new PositiveScoreEvent()
     };

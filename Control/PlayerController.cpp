@@ -52,11 +52,11 @@ void PlayerController::modifyScore(int points)
     playerRef.setScore(currentScore + points);
 }
 
-void PlayerController::modifyDamage(int value)
-{
-    int currentDamage = playerRef.getDamage();
-    playerRef.setDamage(currentDamage + value);
-}
+// void PlayerController::modifyDamage(int value)
+// {
+//     int currentDamage = playerRef.getDamage();
+//     playerRef.setDamage(currentDamage + value);
+// }
 
 void PlayerController::setCoordinates(std::pair<int, int> coords)
 {

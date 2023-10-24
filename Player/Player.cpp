@@ -1,10 +1,10 @@
 #include "Player.h"
 
-Player::Player(int initHealth, int initScore, int initDamage)
+Player::Player(int initHealth, int initScore/*, int initDamage*/)
 {
     health = normalization(initHealth, 1, 100); // Невозможно создать игрока с 0 hp
     score = normalization(initScore, 0, __INT_MAX__);
-    damage = normalization(initDamage, 5, 100);
+    // damage = normalization(initDamage, 5, 100);
 }
 
 int Player::normalization(int val, int lowerLimit, int upperLimit)
@@ -24,10 +24,10 @@ int Player::getScore()
     return score;
 }
 
-int Player::getDamage()
-{
-    return damage;
-}
+// int Player::getDamage()
+// {
+//     return damage;
+// }
 
 void Player::setHealth(int newHealth)
 {
@@ -39,7 +39,7 @@ void Player::setScore(int newScore)
     score = newScore = normalization(newScore, 0, __INT_MAX__);
 }
 
-void Player::setDamage(int newDamage)
-{
-    damage = normalization(newDamage, 5, 100);
-}
+// void Player::setDamage(int newDamage)
+// {
+//     damage = normalization(newDamage, 5, 100);
+// }

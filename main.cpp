@@ -13,19 +13,19 @@
 int main()
 {
     GameField gameField;
-    Player player(60, 50, 50);
+    Player player(100, 50);
     PlayerController controller(player, gameField);
     {
         FieldGenerator generator(gameField);
         generator.generateField();
     }
     int level = 1;
-    #ifndef LIN
+    #ifndef LINs
     system("cls");
     #else
     system("clear");
     #endif
-    std::cout << "HP: " << player.getHealth() << ' ' << "SCORE: " << player.getScore() << " DAMAGE: " << player.getDamage() << '\n';
+    std::cout << "HP: " << player.getHealth() << ' ' << "SCORE: " << player.getScore() /*<< " DAMAGE: "<< player.getDamage()*/  << '\n';
     display(gameField, controller, level);
     char f = ' ';
     #ifdef LIN
@@ -61,7 +61,7 @@ int main()
         default:
             break;
         }
-        std::cout << "HP: " << player.getHealth() << " SCORE: " << player.getScore() << " DAMAGE: " << player.getDamage() << '\n';
+        std::cout << "HP: " << player.getHealth() << ' ' << "SCORE: " << player.getScore() /*<< " DAMAGE: "<< player.getDamage()*/  << '\n';
         display(gameField, controller, level);
     }
     #ifdef LIN

@@ -2,10 +2,10 @@
 #define FIELD_GENERATOR_H
 
 #include "../Field/Field.h"
-#include "../Events/NegativeEvents/Damage.h"
+// #include "../Events/NegativeEvents/Damage.h"
 #include "../Events/NegativeEvents/Health.h"
 #include "../Events/NegativeEvents/Score.h"
-#include "../Events/PositiveEvents/Damage.h"
+// #include "../Events/PositiveEvents/Damage.h"
 #include "../Events/PositiveEvents/Health.h"
 #include "../Events/PositiveEvents/Score.h"
 #include "../Events/NeutralEvents/Coords.h"
