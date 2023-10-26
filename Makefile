@@ -21,4 +21,4 @@
 
 all: game
 game:
-	g++ Player/*.cpp Generators/*.cpp Field/*.cpp Events/NegativeEvents/*.cpp Events/PositiveEvents/*.cpp Events/NeutralEvents/*.cpp Control/*.cpp main.cpp -DLIN && ./a.out
+	g++ Player/*.cpp Generators/*.cpp Field/*.cpp Events/NegativeEvents/*.cpp Events/PositiveEvents/*.cpp Events/NeutralEvents/*.cpp Control/*.cpp main.cpp Events/Visitor/*.cpp -DLIN && ./a.out

@@ -4,6 +4,7 @@
 #include "Control/PlayerController.h"
 #include "Generators/FieldGenerator.h"
 #include "Util/DisplayAndLeveling.h"
+#include <unistd.h>
 #ifndef LIN
 #include <conio.h>
 #else
