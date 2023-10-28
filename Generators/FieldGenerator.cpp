@@ -116,15 +116,8 @@ Event *FieldGenerator::getRandomEvent()
         new NegativeScoreEvent(),
         // new PositiveDamageEvent(),
         new PositiveHealthEvent(),
-        new PositiveScoreEvent()};
-    // std::vector<Event*> events;
-    // events.push_back(new NeutralCoordsEvent({1, 1}));
-    // // events.push_back(new NegativeDamageEvent());
-    // events.push_back(new NegativeHealthEvent());
-    // events.push_back(new NegativeScoreEvent());
-    // // events.push_back(new PositiveDamageEvent());
-    // events.push_back(new PositiveHealthEvent());
-    // events.push_back(new PositiveScoreEvent());
+        new PositiveScoreEvent()
+    };
 
     int numEvents = sizeof(events) / sizeof(events[0]);
     std::uniform_int_distribution<int> distribution(0, numEvents - 1);
