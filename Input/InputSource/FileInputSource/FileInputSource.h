@@ -9,7 +9,7 @@ private:
     std::ifstream file;
 
 public:
-    FileInputSource(const std::string &filename) : file(filename) {}
+    FileInputSource(const std::string &filename);
     
     char getInput() override;
 };

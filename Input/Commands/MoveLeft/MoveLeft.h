@@ -10,6 +10,7 @@ private:
 public:
     MoveLeftCommand(PlayerController &controller);
     void execute() override;
+    // Command *clone() override;
 };
 
 #endif

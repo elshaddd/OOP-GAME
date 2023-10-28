@@ -13,7 +13,7 @@ private:
 public:
     // Player();
 
-    Player(int initHealth = 100, int initScore = 0/*, int initDamage = 5*/);
+    Player(int initHealth = 100, int initScore = 50/*, int initDamage = 5*/);
 
     // Метод выравнивания характеристик по диапазону
     int normalization(int val, int lowerLimit, int upperLimit);

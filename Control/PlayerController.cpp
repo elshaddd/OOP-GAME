@@ -74,3 +74,17 @@ std::pair<int, int> PlayerController::getCoordinates()
 {
     return coordinates;
 }
+
+// PlayerController::PlayerController(const PlayerController &other)
+//     : playerRef(other.playerRef), gameFieldRef(other.gameFieldRef), coordinates(other.coordinates) {}
+
+// PlayerController &PlayerController::operator=(const PlayerController &other)
+// {
+//     if (this != &other)
+//     {
+//         playerRef = other.playerRef;
+//         gameFieldRef = other.gameFieldRef;
+//         coordinates = other.coordinates;
+//     }
+//     return *this;
+// }

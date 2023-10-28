@@ -7,3 +7,8 @@ void MoveRightCommand::execute()
 {
     controller.movePlayer(Direction::RIGHT);
 }
+
+// Command *MoveRightCommand::clone()
+// {
+//     return new MoveRightCommand(*this);
+// }
