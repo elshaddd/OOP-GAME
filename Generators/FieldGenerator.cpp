@@ -101,7 +101,7 @@ void FieldGenerator::processMazeCells()
 
 /**
  * The getRandomEvent function generates a random event from a predefined list of events.
- * 
+ *
  * @return a pointer to an Event object.
  */
 Event *FieldGenerator::getRandomEvent()
@@ -109,28 +109,42 @@ Event *FieldGenerator::getRandomEvent()
     std::uniform_int_distribution<int> distributionY(START_CELL_X, gameFieldRef.getHeight() - 2);
     std::uniform_int_distribution<int> distributionX(START_CELL_Y, gameFieldRef.getWidth() - 2);
 
-    static Event *events[] = {
+    Event *events[] = {
         new NeutralCoordsEvent({1, 1}),
         // new NegativeDamageEvent(),
         new NegativeHealthEvent(),
         new NegativeScoreEvent(),
         // new PositiveDamageEvent(),
         new PositiveHealthEvent(),
-        new PositiveScoreEvent()
-    };
+        new PositiveScoreEvent()};
+    // std::vector<Event*> events;
+    // events.push_back(new NeutralCoordsEvent({1, 1}));
+    // // events.push_back(new NegativeDamageEvent());
+    // events.push_back(new NegativeHealthEvent());
+    // events.push_back(new NegativeScoreEvent());
+    // // events.push_back(new PositiveDamageEvent());
+    // events.push_back(new PositiveHealthEvent());
+    // events.push_back(new PositiveScoreEvent());
 
     int numEvents = sizeof(events) / sizeof(events[0]);
     std::uniform_int_distribution<int> distribution(0, numEvents - 1);
 
     int randomIndex = distribution(gen);
-    if (randomIndex == 0) {
+    if (randomIndex == 0)
+    {
         int randomX, randomY;
-        do {
+        do
+        {
             randomY = distributionY(gen);
             randomX = distributionX(gen);
         } while (gameFieldRef.getCell({randomX, randomY}).isPassable() == false);
         delete events[0];
         events[0] = new NeutralCoordsEvent(std::make_pair(randomX, randomY));
+    }
+    for (int i = 0; i < numEvents; i++)
+    {
+        if (i != randomIndex)
+            delete events[i];
     }
     return events[randomIndex]->clone();
 }
