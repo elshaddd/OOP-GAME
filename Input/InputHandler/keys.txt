@@ -2,5 +2,5 @@ w up
 s down
 a left
 d right
-' exit
-` quit
+` exit
+m quit

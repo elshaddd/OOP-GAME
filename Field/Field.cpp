@@ -111,10 +111,8 @@ void GameField::resize(int w, int h)
     this->width = w;
     this->height = h;
     this->field = fieldAlloc(w, h);
-    if (valid(entrance))
-        this->entrance = {1, 1};
-    if (valid(exit))
-        this->exit = std::make_pair(w - 2, h - 2);
+    this->entrance = {1, 1};
+    this->exit = std::make_pair(w - 2, h - 2);
 }
 
 bool GameField::valid(std::pair<int, int> coords)

@@ -1,6 +1,5 @@
 #ifndef GAME_H
 #define GAME_H
-#include "IGame.h"
 #include "../Player/Player.h"
 #include "../Field/Field.h"
 #include "../Util/Enums.h"
@@ -10,7 +9,7 @@
 #include "../Generators/FieldGenerator.h"
 #include "../Events/Visitor/EventSymbolVisitor.h"
 
-class Game : public IGame
+class Game
 {
 private:
     GameField gameField;
@@ -22,6 +21,8 @@ private:
 public:
     Game(InputSource *inputSource);
 
+    void createLevel();
+    
     void leveling();
 
     void display();
@@ -36,7 +37,7 @@ public:
 
     // void restart();
 
-    void quit() override;
+    void quit();
 
     void gameLoop();
 

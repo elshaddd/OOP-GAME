@@ -10,7 +10,7 @@
  * keyboard, a mouse, or any other input device. The InputHandler class uses this input source to get
  * the user's input.
  */
-InputHandler::InputHandler(PlayerController &controller, InputSource &inputSource) : controller(controller), inputSource(inputSource)
+InputHandler::InputHandler(PlayerController &controller, InputSource &inputSource, std::function<void()> quitCallback) : controller(controller), inputSource(inputSource), quitCallback(quitCallback)
 {
     loadCommandsFromFile("C:\\OOP\\Input\\InputHandler\\keys.txt");
 }
@@ -50,8 +50,7 @@ void InputHandler::loadCommandsFromFile(const std::string &filename)
         }
         else if (command == "quit")
         {
-            IGame *game;
-            keyToCommandMap[key] = new QuitCommand(*game);
+            keyToCommandMap[key] = new QuitCommand(quitCallback);
         }
     }
 }

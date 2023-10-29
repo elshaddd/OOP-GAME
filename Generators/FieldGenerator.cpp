@@ -110,30 +110,30 @@ Event *FieldGenerator::getRandomEvent()
     std::uniform_int_distribution<int> distributionX(START_CELL_Y, gameFieldRef.getWidth() - 2);
 
     Event *events[] = {
-        new NeutralCoordsEvent({1, 1}),
-        // new NegativeDamageEvent(),
+        // new NeutralCoordsEvent({1, 1}),
+        // // new NegativeDamageEvent(),
         new NegativeHealthEvent(),
-        new NegativeScoreEvent(),
-        // new PositiveDamageEvent(),
-        new PositiveHealthEvent(),
-        new PositiveScoreEvent()
+        // new NegativeScoreEvent(),
+        // // new PositiveDamageEvent(),
+        // new PositiveHealthEvent(),
+        // new PositiveScoreEvent()
     };
 
     int numEvents = sizeof(events) / sizeof(events[0]);
     std::uniform_int_distribution<int> distribution(0, numEvents - 1);
 
     int randomIndex = distribution(gen);
-    if (randomIndex == 0)
-    {
-        int randomX, randomY;
-        do
-        {
-            randomY = distributionY(gen);
-            randomX = distributionX(gen);
-        } while (gameFieldRef.getCell({randomX, randomY}).isPassable() == false);
-        delete events[0];
-        events[0] = new NeutralCoordsEvent(std::make_pair(randomX, randomY));
-    }
+    // if (randomIndex == 0)
+    // {
+    //     int randomX, randomY;
+    //     do
+    //     {
+    //         randomY = distributionY(gen);
+    //         randomX = distributionX(gen);
+    //     } while (gameFieldRef.getCell({randomX, randomY}).isPassable() == false);
+    //     delete events[0];
+    //     events[0] = new NeutralCoordsEvent(std::make_pair(randomX, randomY));
+    // }
     for (int i = 0; i < numEvents; i++)
     {
         if (i != randomIndex)

@@ -1,16 +1,16 @@
 #ifndef QUIT_COMMAND_H
 #define QUIT_COMMAND_H
 #include "../Command.h"
-#include "../../../Game/IGame.h"
+#include <functional>
 
-class QuitCommand : public Command
-{
+class QuitCommand : public Command {
 private:
-    IGame &game;
-
+    std::function<void()> quitCallback;
 public:
-    QuitCommand(IGame &game);
+    QuitCommand(std::function<void()> quitCallback);
+
     void execute() override;
+
 };
 
 #endif

@@ -1,8 +1,8 @@
 #include "Quit.h"
 
-QuitCommand::QuitCommand(IGame &game) : game(game) {}
+QuitCommand::QuitCommand(std::function<void()> quitCallback) : quitCallback(quitCallback) {}
 
 void QuitCommand::execute()
 {
-    game.quit();
+    quitCallback();
 }
