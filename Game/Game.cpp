@@ -1,13 +1,54 @@
 #include "Game.h"
 
-Game::Game(InputSource *inputSource) : gameField(), player(), controller(player, gameField), inputHandler(controller, *inputSource, [this]()
-                                                                                                          { this->quit(); }) {}
-
-void Game::createLevel()
+Game::Game(InputSource *inputSource) : gameField(), player(), controller(player, gameField),
+                                       inputHandler(
+                                           controller, *inputSource,
+                                           [this]()
+                                           { this->start(); },
+                                           [this]()
+                                           { this->restart(); },
+                                           [this](int level)
+                                           { this->selectLevel(level); },
+                                           [this]()
+                                           { this->quit(); })
 {
-    FieldGenerator generator(gameField);
-    generator.generateField();
-    controller.setCoordinates({1, 1});
+}
+
+void Game::process()
+{
+    displayMenu();
+    while (gameStatus == PAUSE)
+    {
+        Command *command = inputHandler.handleInput();
+        if (command)
+        {
+            command->execute();
+        }
+    }
+}
+
+void Game::gameLoop()
+{
+    display();
+    while (gameStatus == RUN)
+    {
+        Command *command = inputHandler.handleInput();
+        if (command)
+        {
+            command->execute();
+        }
+        display();
+        checkRun();
+        if (gameStatus == OVER)
+        {
+            gameOver();
+        }
+        else if (gameStatus == PASS)
+        {
+            level++;
+            start();
+        }
+    }
 }
 
 void Game::leveling()
@@ -20,224 +61,134 @@ void Game::leveling()
     {
         gameField.resize(level * 23, level * 11);
     }
-    createLevel();
+    FieldGenerator generator(gameField);
+    generator.generateField();
+    controller.setCoordinates({1, 1});
 }
 
 void Game::start()
 {
-    level = 1;
-    createLevel();
-    gameLoop();
+    if(gameStatus == PAUSE || gameStatus == PASS)
+    {
+        gameStatus = RUN;
+        leveling();
+        gameLoop();
+    }
 }
 
-void Game::quit()
+void Game::restart()
 {
-    runMenu();
-    // int choice;
-    // while(true){
-        
-    // }
-    // do
-    // {
-    //     system("cls");
-    //     std::cout << "1. Start game\n";
-    //     std::cout << "2. Select level\n";
-    //     std::cout << "3. Quit\n";
-    //     std::cout << ">> ";
-    //     std::cin >> choice;
-
-    //     switch (choice)
-    //     {
-    //     case 1:
-    //         start();
-    //         break;
-    //     case 2:
-    //         std::cout << "Enter level: ";
-    //         int level;
-    //         std::cin >> level;
-    //         selectLevel(level);
-    //         break;
-    //     case 3:
-    //         exit();
-    //         break;
-    //     default:
-    //         std::cout << "Invalid choice. Please try again.\n";
-    //     }
-    // } while (choice != 3);
+    if(gameStatus == OVER){
+        gameStatus = RUN;
+        level = 1;
+        leveling();
+        gameLoop();
+    }
 }
 
 void Game::selectLevel(int level)
 {
-    this->level = level;
-    leveling();
+    if(gameStatus == PAUSE){
+        this->level = level;
+        leveling();
+    }
 }
 
-Status Game::checkGameStatus()
+void Game::quit()
+{
+    gameStatus = PAUSE;
+    process();
+}
+
+void Game::checkRun()
 {
     if (player.getHealth() == 0)
-        return OVER;
+        gameStatus = OVER;
     else if (controller.getCoordinates() == gameField.getExit())
-        return PASS;
-    else
-        return RUN;
+        gameStatus = PASS;
 }
 
-void Game::exit()
+void Game::gameOver()
 {
-    std::exit(0);
-}
-
-void Game::notRun(Status st)
-{
-    if (st == OVER)
-        displayOver();
-    else
-        displayPass();
-}
-
-void Game::gameLoop()
-{
-    display();
-    while (true)
+    displayOver();
+    player = Player();
+    level = 1;
+    while (gameStatus == OVER)
     {
         Command *command = inputHandler.handleInput();
         if (command)
         {
             command->execute();
         }
-
-        // отрисовка игрового поля
-        display();
-
-        if (checkGameStatus() != RUN)
-        {
-            notRun(checkGameStatus());
-            break;
-        }
     }
+}
+
+void Game::displayMenu()
+{
+    #ifdef LIN
+    system("clear");
+    #else
+    system("cls");
+    #endif
+    std::cout << "1 - Start game\n";
+    std::cout << "0 - Exit\n";
+    std::cout << "z - First level   x - Second level   c - Third level   v - Fourth level\n";
 }
 
 void Game::display()
 {
-    system("cls");
-    std::cout << "HP: " << player.getHealth() << ' ' << "SCORE: " << player.getScore() /*<< " DAMAGE: "<< player.getDamage()*/ << '\n';
-    std::string buffer;
+    std::ostringstream buffer;
+    buffer << "HP: " << player.getHealth() << ' ' << "SCORE: " << player.getScore() /*<< " DAMAGE: "<< player.getDamage()*/ << '\n';
+
     for (int i = 0; i < gameField.getHeight(); i++)
     {
         for (int j = 0; j < gameField.getWidth(); j++)
         {
             if (controller.getCoordinates().first == j && controller.getCoordinates().second == i)
             {
-                buffer += "i ";
+                buffer << "i ";
             }
             else if (std::make_pair(j, i) == gameField.getEntrance())
             {
-                buffer += "] ";
+                buffer << "] ";
             }
             else if (std::make_pair(j, i) == gameField.getExit())
             {
-                buffer += "[ ";
+                buffer << "[ ";
             }
             else if (gameField.getCell(std::make_pair(j, i)).getEvent() != nullptr)
             {
                 EventSymbolVisitor visitor;
                 char symbol = gameField.getCell(std::make_pair(j, i)).getEvent()->accept(visitor);
-                buffer += symbol;
-                buffer += " ";
+                buffer << symbol << " ";
             }
             else if (gameField.getCell(std::make_pair(j, i)).isPassable())
             {
-                buffer += "  ";
+                buffer << "  ";
             }
             else
             {
-                buffer += "* ";
+                buffer << "* ";
             }
         }
-        buffer += "\n";
+        buffer << "\n";
     }
-    std::cout << buffer;
-}
+    buffer << "Press (m) to exit the level\n";
 
-void Game::runMenu()
-{
-    int choice;
-    do
-    {
-        system("cls");
-        std::cout << "1. Start game\n";
-        std::cout << "2. Select level\n";
-        std::cout << "3. Quit\n";
-        std::cout << ">> ";
-        std::cin >> choice;
-
-        switch (choice)
-        {
-        case 1:
-            start();
-            break;
-        case 2:
-            std::cout << "Enter level: ";
-            int level;
-            std::cin >> level;
-            selectLevel(level);
-            break;
-        case 3:
-            exit();
-            break;
-        default:
-            std::cout << "Invalid choice. Please try again.\n";
-        }
-    } while (choice != 3);
+    #ifdef LIN
+    system("clear");
+    #else
+    system("cls");
+    #endif
+    std::cout << buffer.str();
 }
 
 void Game::displayOver()
 {
-    // предложение пользователю начать новую игру или выйти
-    char decision;
-    do
-    {
-        system("cls");
-        std::cout << "GAME OVER\nStart a new game (n) or quit (q)?\n>> ";
-        std::cin >> decision;
-
-        switch (decision)
-        {
-        case 'n':
-            controller.modifyHealth(100);
-            selectLevel(1);
-            start();
-            break;
-        case 'q':
-            quit();
-            break;
-        default:
-            std::cout << "Invalid choice. Please try again.\n";
-        }
-    } while (true);
-}
-
-void Game::displayPass()
-{
-    // предложение пользователю начать новую игру или выйти
-    char decision;
-    do
-    {
-        system("cls");
-        std::cout << "YOU PASSED THE LEVEL\nNext level (n) or quit (q)?\n>> ";
-        std::cin >> decision;
-
-        switch (decision)
-        {
-        case 'n':
-            selectLevel(++level);
-            gameLoop();
-            break;
-        case 'q':
-            quit();
-            break;
-        default:
-            std::cout << "Invalid choice. Please try again.\n";
-        }
-    } while (true);
+    #ifdef LIN
+    system("clear");
+    #else
+    system("cls");
+    #endif
+    std::cout << "GAME OVER\nStart a new game (n) or quit (m)?\n>> ";
 }

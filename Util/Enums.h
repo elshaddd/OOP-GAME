@@ -18,6 +18,7 @@ enum Characteristics
 
 enum Status
 {
+    PAUSE,
     RUN,
     PASS,
     OVER

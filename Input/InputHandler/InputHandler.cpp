@@ -1,16 +1,27 @@
 #include "InputHandler.h"
 
 /**
- * The InputHandler constructor initializes the controller and inputSource objects and loads commands
- * from a file.
+ * The InputHandler constructor initializes the InputHandler object with the provided parameters and
+ * loads commands from a file.
  *
- * @param controller The `PlayerController` object that will be used to handle player input and control
- * the game.
+ * @param controller The `PlayerController` object that will handle the player's actions based on the
+ * input received.
  * @param inputSource The input source is an object that provides the input for the game. It could be a
- * keyboard, a mouse, or any other input device. The InputHandler class uses this input source to get
- * the user's input.
+ * keyboard, a gamepad, or any other input device. The InputHandler class uses this input source to
+ * handle user input and trigger the appropriate actions in the game.
+ * @param startCallback A function that will be called when the start button is pressed.
+ * @param restartCallback A function that will be called when the user wants to restart the game.
+ * @param selectLevelCallback The selectLevelCallback is a function that takes an integer parameter and
+ * does some action based on the selected level.
+ * @param quitCallback The quitCallback is a function that will be called when the user wants to quit
+ * the game.
  */
-InputHandler::InputHandler(PlayerController &controller, InputSource &inputSource, std::function<void()> quitCallback) : controller(controller), inputSource(inputSource), quitCallback(quitCallback)
+InputHandler::InputHandler(PlayerController &controller,
+                           InputSource &inputSource,
+                           std::function<void()> startCallback,
+                           std::function<void()> restartCallback,
+                           std::function<void(int)> selectLevelCallback,
+                           std::function<void()> quitCallback) : controller(controller), inputSource(inputSource), startCallback(startCallback), restartCallback(restartCallback), selectLevelCallback(selectLevelCallback), quitCallback(quitCallback)
 {
     loadCommandsFromFile("C:\\OOP\\Input\\InputHandler\\keys.txt");
 }
@@ -44,13 +55,26 @@ void InputHandler::loadCommandsFromFile(const std::string &filename)
         {
             keyToCommandMap[key] = new MoveRightCommand(controller);
         }
-        else if (command == "exit")
+        else if (command == "start")
         {
-            keyToCommandMap[key] = new ExitCommand();
+            keyToCommandMap[key] = new StartCommand(startCallback);
+        }
+        else if (command == "restart")
+        {
+            keyToCommandMap[key] = new RestartCommand(restartCallback);
+        }
+        else if (command.substr(0, 5) == "level")
+        {
+            int level = std::stoi(command.substr(5));
+            keyToCommandMap[key] = new SelectLevelCommand(selectLevelCallback, level);
         }
         else if (command == "quit")
         {
             keyToCommandMap[key] = new QuitCommand(quitCallback);
+        }
+        else if (command == "exit")
+        {
+            keyToCommandMap[key] = new ExitCommand();
         }
     }
 }
@@ -71,6 +95,11 @@ Command *InputHandler::handleInput()
     return nullptr;
 }
 
+void InputHandler::check()
+{
+    //
+}
+
 /**
  * The destructor of the InputHandler class deletes all the commands stored in the keyToCommandMap.
  */
@@ -81,45 +110,3 @@ InputHandler::~InputHandler()
         delete pair.second;
     }
 }
-
-// InputHandler::InputHandler(const InputHandler &other) : controller(other.controller), inputSource(other.inputSource)
-// {
-//     for (const auto &pair : other.keyToCommandMap)
-//     {
-//         keyToCommandMap[pair.first] = pair.second->clone();
-//     }
-// }
-
-// InputHandler &InputHandler::operator=(const InputHandler &other)
-// {
-//     if (this != &other)
-//     {
-//         for (auto &pair : keyToCommandMap)
-//         {
-//             delete pair.second;
-//         }
-//         controller = other.controller;
-//         inputSource = other.inputSource;
-//         for (const auto &pair : other.keyToCommandMap)
-//         {
-//             keyToCommandMap[pair.first] = pair.second->clone();
-//         }
-//     }
-//     // if (this != &other)
-//     // {
-//     //     controller = other.controller;
-//     //     inputSource = other.inputSource;
-
-//     //     for (auto &pair : keyToCommandMap)
-//     //     {
-//     //         delete pair.second;
-//     //     }
-//     //     keyToCommandMap.clear();
-
-//     //     for (const auto &pair : other.keyToCommandMap)
-//     //     {
-//     //         keyToCommandMap[pair.first] = pair.second->clone();
-//     //     }
-//     // }
-//     return *this;
-// }

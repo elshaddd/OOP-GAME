@@ -2,5 +2,11 @@ w up
 s down
 a left
 d right
-` exit
+1 start
+0 exit
 m quit
+n restart
+z level1
+x level2
+c level3
+v level4
