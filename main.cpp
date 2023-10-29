@@ -17,7 +17,7 @@ int main()
 {
     InputSource* inputSource = new ConsoleInputSource;
     Game game(inputSource);
-    game.gameLoop();
+    game.runMenu();
     // GameField gameField;
     // Player player(100, 50);
     // PlayerController controller(player, gameField);

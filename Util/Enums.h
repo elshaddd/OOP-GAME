@@ -13,7 +13,13 @@ enum Characteristics
 {
     HEALTH,
     SCORE,
-    dAMAGE
+    DAMAGE
 };
 
+enum Status
+{
+    RUN,
+    PASS,
+    OVER
+};
 #endif

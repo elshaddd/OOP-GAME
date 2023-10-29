@@ -9,29 +9,29 @@
 
 // char EventSymbolVisitor::visit(NegativeDamageEvent &event)
 // {
-//     return 'd'; // or any other symbol
+//     return 'd';
 // }
 char EventSymbolVisitor::visit(NegativeScoreEvent &event)
 {
-    return 'U'; // or any other symbol
+    return 'U';
 }
 char EventSymbolVisitor::visit(NegativeHealthEvent &event)
 {
-    return 'W'; // or any other symbol
+    return 'W';
 }
 // char EventSymbolVisitor::visit(PositiveDamageEvent &event)
 // {
-//     return 'D'; // or any other symbol
+//     return 'D';
 // }
 char EventSymbolVisitor::visit(PositiveScoreEvent &event)
 {
-    return 'O'; // or any other symbol
+    return 'O';
 }
 char EventSymbolVisitor::visit(PositiveHealthEvent &event)
 {
-    return '+'; // or any other symbol
+    return '+';
 }
 char EventSymbolVisitor::visit(NeutralCoordsEvent &event)
 {
-    return '?'; // or any other symbol
+    return '?';
 }

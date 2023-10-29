@@ -39,11 +39,11 @@ void PlayerController::modifyHealth(int value)
 {
     int currentHealth = playerRef.getHealth();
     playerRef.setHealth(currentHealth + value);
-    if (playerRef.getHealth() == 0)
-    {
-        std::cout << "GAME OVER\n";
-        std::exit(0);
-    }
+    // if (playerRef.getHealth() == 0)
+    // {
+    //     std::cout << "GAME OVER\n";
+    //     std::exit(0);
+    // }
 }
 
 void PlayerController::modifyScore(int points)

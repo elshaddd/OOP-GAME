@@ -1,25 +1,23 @@
 #ifndef GAME_H
 #define GAME_H
+#include "IGame.h"
 #include "../Player/Player.h"
 #include "../Field/Field.h"
+#include "../Util/Enums.h"
 #include "../Control/PlayerController.h"
 #include "../Input/InputHandler/InputHandler.h"
 #include "../Input/InputSource/InputSource.h"
 #include "../Generators/FieldGenerator.h"
 #include "../Events/Visitor/EventSymbolVisitor.h"
 
-class Game
+class Game : public IGame
 {
 private:
-    
-    // InputSource *inputSource;
-
     GameField gameField;
     Player player;
     PlayerController controller;
     InputHandler inputHandler;
     int level = 1;
-    // Дополнительные члены класса...
 
 public:
     Game(InputSource *inputSource);
@@ -34,13 +32,21 @@ public:
 
     void selectLevel(int level);
 
-    bool checkGameStatus();
+    Status checkGameStatus();
 
-    void restart();
+    // void restart();
 
-    void quit();
+    void quit() override;
 
     void gameLoop();
+
+    void runMenu();
+
+    void displayOver();
+
+    void displayPass();
+
+    void notRun(Status st);
 };
 
 // class Game
