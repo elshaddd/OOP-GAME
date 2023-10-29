@@ -23,7 +23,11 @@ InputHandler::InputHandler(PlayerController &controller,
                            std::function<void(int)> selectLevelCallback,
                            std::function<void()> quitCallback) : controller(controller), inputSource(inputSource), startCallback(startCallback), restartCallback(restartCallback), selectLevelCallback(selectLevelCallback), quitCallback(quitCallback)
 {
+#ifdef LIN
+    loadCommandsFromFile("/home/elshad/OOP/game/Input/InputHandler/keys.txt");
+#else
     loadCommandsFromFile("C:\\OOP\\Input\\InputHandler\\keys.txt");
+#endif
 }
 
 /**

@@ -3,14 +3,15 @@
 #include "../Command.h"
 #include <functional>
 
-class QuitCommand : public Command {
+class QuitCommand : public Command
+{
 private:
     std::function<void()> quitCallback;
+
 public:
     QuitCommand(std::function<void()> quitCallback);
 
     void execute() override;
-
 };
 
 #endif

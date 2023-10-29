@@ -68,7 +68,7 @@ void Game::leveling()
 
 void Game::start()
 {
-    if(gameStatus == PAUSE || gameStatus == PASS)
+    if (gameStatus == PAUSE || gameStatus == PASS)
     {
         gameStatus = RUN;
         leveling();
@@ -78,7 +78,8 @@ void Game::start()
 
 void Game::restart()
 {
-    if(gameStatus == OVER){
+    if (gameStatus == OVER)
+    {
         gameStatus = RUN;
         level = 1;
         leveling();
@@ -88,7 +89,8 @@ void Game::restart()
 
 void Game::selectLevel(int level)
 {
-    if(gameStatus == PAUSE){
+    if (gameStatus == PAUSE)
+    {
         this->level = level;
         leveling();
     }
@@ -125,11 +127,11 @@ void Game::gameOver()
 
 void Game::displayMenu()
 {
-    #ifdef LIN
+#ifdef LIN
     system("clear");
-    #else
+#else
     system("cls");
-    #endif
+#endif
     std::cout << "1 - Start game\n";
     std::cout << "0 - Exit\n";
     std::cout << "z - First level   x - Second level   c - Third level   v - Fourth level\n";
@@ -175,20 +177,20 @@ void Game::display()
     }
     buffer << "Press (m) to exit the level\n";
 
-    #ifdef LIN
+#ifdef LIN
     system("clear");
-    #else
+#else
     system("cls");
-    #endif
+#endif
     std::cout << buffer.str();
 }
 
 void Game::displayOver()
 {
-    #ifdef LIN
+#ifdef LIN
     system("clear");
-    #else
+#else
     system("cls");
-    #endif
+#endif
     std::cout << "GAME OVER\nStart a new game (n) or quit (m)?\n>> ";
 }

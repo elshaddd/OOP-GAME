@@ -6,7 +6,7 @@ class ExitCommand : public Command
 {
 public:
     void execute() override;
-    
+
     // Command *clone() override;
 };
 

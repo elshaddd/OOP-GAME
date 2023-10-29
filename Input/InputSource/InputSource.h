@@ -5,7 +5,7 @@ class InputSource
 {
 public:
     virtual ~InputSource() = default;
-    
+
     virtual char getInput() = 0;
 };
 
