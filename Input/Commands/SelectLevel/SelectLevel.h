@@ -6,11 +6,11 @@
 class SelectLevelCommand : public Command
 {
 private:
-    std::function<void(int)> selectLevelCallback;
+    Game &game;
     int level;
 
 public:
-    SelectLevelCommand(std::function<void(int)> selectLevelCallback, int level);
+    SelectLevelCommand(Game &game, int level);
 
     void execute() override;
 };

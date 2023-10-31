@@ -1,8 +1,9 @@
 #include "Quit.h"
+#include "../../../Game/Game.h"
 
-QuitCommand::QuitCommand(std::function<void()> quitCallback) : quitCallback(quitCallback) {}
+QuitCommand::QuitCommand(Game &game) : game(game) {}
 
 void QuitCommand::execute()
 {
-    quitCallback();
+    game.quit();
 }

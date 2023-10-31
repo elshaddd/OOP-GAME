@@ -4,6 +4,7 @@
 #include <fstream>
 #include <functional>
 #include "../../Control/PlayerController.h"
+#include "../../Game/Game.h"
 #include "../Commands/Command.h"
 #include "../Commands/MoveUp/MoveUp.h"
 #include "../Commands/MoveDown/MoveDown.h"
@@ -21,15 +22,12 @@ class InputHandler
 private:
     std::map<char, Command *> keyToCommandMap;
     PlayerController &controller;
+    Game &game;
     InputSource &inputSource;
-    std::function<void()> quitCallback;
-    std::function<void(int)> selectLevelCallback;
-    std::function<void()> startCallback;
-    std::function<void()> restartCallback;
     int level;
 
 public:
-    InputHandler(PlayerController &controller, InputSource &inputSource, std::function<void()> startCallback, std::function<void()> restartCallback, std::function<void(int)> selectLevelCallback, std::function<void()> quitCallback);
+    InputHandler(PlayerController &controller, Game &game, InputSource &inputSource);
 
     Command *handleInput();
 
@@ -38,10 +36,6 @@ public:
     void check();
 
     ~InputHandler();
-
-    // InputHandler(const InputHandler &other);
-
-    // InputHandler &operator=(const InputHandler &other);
 };
 
 #endif

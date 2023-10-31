@@ -1,8 +1,9 @@
 #include "Start.h"
+#include "../../../Game/Game.h"
 
-StartCommand::StartCommand(std::function<void()> startCallback) : startCallback(startCallback) {}
+StartCommand::StartCommand(Game &game) : game(game) {}
 
 void StartCommand::execute()
 {
-    startCallback();
+    game.start();
 }

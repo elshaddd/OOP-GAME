@@ -3,29 +3,20 @@
 #include <sstream>
 #include "../Player/Player.h"
 #include "../Field/Field.h"
-#include "../Util/Enums.h"
 #include "../Control/PlayerController.h"
-#include "../Input/InputHandler/InputHandler.h"
-#include "../Input/InputSource/InputSource.h"
 #include "../Generators/FieldGenerator.h"
-#include "../Events/Visitor/EventSymbolVisitor.h"
 
 class Game
 {
 private:
-    GameField gameField;
-    Player player;
-    PlayerController controller;
-    InputHandler inputHandler;
+    GameField &gameField;
+    Player &player;
+    PlayerController &controller;
     int level = 1;
     Status gameStatus = PAUSE;
 
 public:
-    Game(InputSource *inputSource);
-
-    void process();
-
-    void gameLoop();
+    Game(Player &player, GameField &gameField, PlayerController &controller);
 
     void leveling();
 
@@ -34,20 +25,22 @@ public:
     void restart();
 
     void selectLevel(int level);
-
+    
     void quit();
+
+    void nextLevel();
+
+    void reset();
 
     void checkRun();
 
-    void gameOver();
+    Status getStatus();
 
-    void display();
+    void setStatus(Status newStatus);
 
-    void displayMenu();
+    int getLevel();
 
-    void displayOver();
-
-    void displayPass();
+    void setLevel(int newLevel);
 };
 
 #endif

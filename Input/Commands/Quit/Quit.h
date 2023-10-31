@@ -6,10 +6,10 @@
 class QuitCommand : public Command
 {
 private:
-    std::function<void()> quitCallback;
-
+    Game &game;
+    
 public:
-    QuitCommand(std::function<void()> quitCallback);
+    QuitCommand(Game &game);
 
     void execute() override;
 };

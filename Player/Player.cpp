@@ -36,7 +36,7 @@ void Player::setHealth(int newHealth)
 
 void Player::setScore(int newScore)
 {
-    score = newScore = normalization(newScore, 0, __INT_MAX__);
+    score = normalization(newScore, 0, __INT_MAX__);
 }
 
 // void Player::setDamage(int newDamage)

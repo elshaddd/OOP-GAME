@@ -1,8 +1,9 @@
 #include "SelectLevel.h"
+#include "../../../Game/Game.h"
 
-SelectLevelCommand::SelectLevelCommand(std::function<void(int)> selectLevelCallback, int level) : selectLevelCallback(selectLevelCallback), level(level) {}
+SelectLevelCommand::SelectLevelCommand(Game &game, int level) : game(game), level(level) {}
 
 void SelectLevelCommand::execute()
 {
-    selectLevelCallback(level);
+    game.selectLevel(level);
 }

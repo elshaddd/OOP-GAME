@@ -6,10 +6,10 @@
 class RestartCommand : public Command
 {
 private:
-    std::function<void()> restartCallback;
-
+    Game &game;
+    
 public:
-    RestartCommand(std::function<void()> restartCallback);
+    RestartCommand(Game &game);
 
     void execute() override;
 };

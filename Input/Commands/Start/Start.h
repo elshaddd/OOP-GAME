@@ -6,10 +6,10 @@
 class StartCommand : public Command
 {
 private:
-    std::function<void()> startCallback;
+    Game &game;
 
 public:
-    StartCommand(std::function<void()> startCallback);
+    StartCommand(Game &game);
 
     void execute() override;
 };

@@ -1,8 +1,9 @@
 #include "Restart.h"
+#include "../../../Game/Game.h"
 
-RestartCommand::RestartCommand(std::function<void()> restartCallback) : restartCallback(restartCallback) {}
+RestartCommand::RestartCommand(Game &game) : game(game) {}
 
 void RestartCommand::execute()
 {
-    restartCallback();
+    game.restart();
 }

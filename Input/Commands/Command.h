@@ -3,6 +3,7 @@
 #include "../../Util/Enums.h"
 
 class PlayerController;
+class Game;
 
 class Command
 {

@@ -6,11 +6,11 @@
 #include "Util/DisplayAndLeveling.h"
 #include "Game/Game.h"
 #include "Input/InputSource/ConsoleInputSource/ConsoleInputSource.h"
+#include "GameClient/GameClient.h"
 #include <unistd.h>
 
 int main()
 {
-    InputSource *inputSource = new ConsoleInputSource;
-    Game game(inputSource);
-    game.process();
+    GameClient gameC;
+    gameC.loop();
 }
