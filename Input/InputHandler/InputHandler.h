@@ -1,7 +1,9 @@
 #ifndef INPUT_HANDLER_H
 #define INPUT_HANDLER_H
 #include <map>
+#include <set>
 #include <fstream>
+#include <typeinfo>
 #include <functional>
 #include "../../Control/IMove.h"
 #include "../../Game/IGame.h"
@@ -12,8 +14,10 @@
 #include "../Commands/MoveRight/MoveRight.h"
 #include "../Commands/Start/Start.h"
 #include "../Commands/Restart/Restart.h"
+#include "../Commands/Select/Select.h"
 #include "../Commands/SelectLevel/SelectLevel.h"
 #include "../Commands/Quit/Quit.h"
+#include "../Commands/Menu/Menu.h"
 #include "../Commands/Exit/Exit.h"
 #include "../InputSource/InputSource.h"
 

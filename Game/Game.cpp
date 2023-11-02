@@ -4,17 +4,19 @@
  * The Game constructor initializes a Game object with references to a Player, GameField, and
  * PlayerController.
  * 
- * @param player The player object that represents the player in the game.
+ * @param player The player object represents the player in the game. It contains information about the
+ * player's name, score, and other relevant data.
  * @param gameField The gameField parameter is an object of the GameField class. It represents the game
  * field or board where the game is played.
- * @param controller The `controller` parameter is an object of the `PlayerController` class. It is
- * used to control the actions and movements of the player in the game.
+ * @param controller The controller parameter is an instance of the PlayerController class. It is
+ * responsible for handling player input and controlling the player's actions in the game.
  */
 Game::Game(Player &player, GameField &gameField, PlayerController &controller) : player(player), gameField(gameField), controller(controller) {}
 
 /**
- * The `leveling` function resizes the game field based on the current level and generates a new field
- * using a `FieldGenerator` object, and sets the player's starting coordinates to (1, 1).
+ * The leveling function resizes the game field based on the current level and generates a new field
+ * using a FieldGenerator object, then sets the player's starting coordinates to (1, 1) using the
+ * controller object.
  */
 void Game::leveling()
 {
@@ -32,41 +34,52 @@ void Game::leveling()
 }
 
 /**
- * The start function sets the game status to "RUN" and calls the leveling function if the game status
- * is either "PAUSE" or "PASS".
+ * The start function sets the game status to "RUN", initializes a player object, and calls the
+ * leveling function.
  */
 void Game::start()
 {
-    if (gameStatus == PAUSE || gameStatus == PASS)
+    if (gameStatus == MENU)
     {
         gameStatus = RUN;
+        player = Player();
         leveling();
     }
 }
 
 /**
- * The restart function resets the game status to "RUN", sets the level to 1, and calls the leveling
+ * The restart function resets the game status, creates a new player object, and calls the leveling
  * function.
  */
 void Game::restart()
 {
-    if (gameStatus == OVER)
+    if (gameStatus == OVER || gameStatus == PAUSE)
     {
         gameStatus = RUN;
-        level = 1;
+        player = Player();
         leveling();
     }
 }
 
 /**
- * The selectLevel function sets the level of the game if the game is currently paused.
+ * The select function changes the game status to SELECTING if the current game status is MENU.
+ */
+void Game::select()
+{
+    if (gameStatus == MENU)
+        gameStatus = SELECTING;
+}
+
+/**
+ * The selectLevel function sets the level of the game and calls the leveling function if the game
+ * status is currently set to SELECTING.
  * 
  * @param level The level parameter is an integer that represents the level that the player wants to
  * select.
  */
 void Game::selectLevel(int level)
 {
-    if (gameStatus == PAUSE)
+    if (gameStatus == SELECTING)
     {
         this->level = level;
         leveling();
@@ -74,14 +87,27 @@ void Game::selectLevel(int level)
 }
 
 /**
- * The quit function sets the game status to PAUSE.
+ * The quit function changes the game status between MENU, PAUSE, and RUN depending on the current game
+ * status.
  */
 void Game::quit()
 {
-    gameStatus = PAUSE;
+    if (gameStatus == SELECTING)
+        gameStatus = MENU;
+    else if (gameStatus == PAUSE)
+        gameStatus = RUN;
+    else if (gameStatus == RUN)
+        gameStatus = PAUSE;
 }
 
-// can use in Client
+/**
+ * The menu function sets the game status to MENU if the current game status is PAUSE or OVER.
+ */
+void Game::menu()
+{
+    if (gameStatus == PAUSE || gameStatus == OVER)
+        gameStatus = MENU;
+}
 
 /**
  * The function "nextLevel" increases the level by one and calls the "leveling" function.
@@ -93,7 +119,7 @@ void Game::nextLevel()
 }
 
 /**
- * The reset function resets the game by creating a new player object and setting the level to 1.
+ * The reset function resets the player and level variables to their initial values.
  */
 void Game::reset()
 {
@@ -102,7 +128,7 @@ void Game::reset()
 }
 
 /**
- * The function checks if the player's health is zero or if the player's coordinates match the exit
+ * The function checks if the player's health is zero or if the player has reached the exit
  * coordinates, and updates the game status accordingly.
  */
 void Game::checkRun()
@@ -124,7 +150,7 @@ Status Game::getStatus()
 }
 
 /**
- * The function sets the game status to a new status.
+ * The function sets the status of the game to a new status.
  * 
  * @param newStatus The new status that will be assigned to the game.
  */
@@ -132,23 +158,3 @@ void Game::setStatus(Status newStatus)
 {
     gameStatus = newStatus;
 }
-
-// /**
-//  * The function "getLevel" returns the value of the variable "level".
-//  * 
-//  * @return The level of the game.
-//  */
-// int Game::getLevel()
-// {
-//     return level;
-// }
-
-// /**
-//  * The function sets the level of the game to a new value.
-//  * 
-//  * @param newLevel The new level that you want to set for the game.
-//  */
-// void Game::setLevel(int newLevel)
-// {
-//     level = newLevel;
-// }

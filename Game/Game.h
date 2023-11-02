@@ -14,22 +14,26 @@ private:
     Player &player;
     PlayerController &controller;
     int level = 1;
-    Status gameStatus = PAUSE;
+    Status gameStatus = MENU;
 
 public:
     Game(Player &player, GameField &gameField, PlayerController &controller);
 
     void leveling();
 
-//
+    //
     void start() override;
 
     void restart() override;
 
+    void select() override;
+
     void selectLevel(int level) override;
-    
+
     void quit() override;
-//
+
+    void menu() override;
+    //
 
     void nextLevel();
 
@@ -40,10 +44,6 @@ public:
     Status getStatus();
 
     void setStatus(Status newStatus);
-// 
-    // int getLevel();
-
-    // void setLevel(int newLevel);
 };
 
 #endif

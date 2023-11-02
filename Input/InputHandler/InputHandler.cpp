@@ -19,6 +19,7 @@ InputHandler::InputHandler(IMove *controller, IGame *game, InputSource &inputSou
 #else
     loadCommandsFromFile("C:\\OOP\\Input\\InputHandler\\keys.txt");
 #endif
+    check();
 }
 
 /**
@@ -58,6 +59,10 @@ void InputHandler::loadCommandsFromFile(const std::string &filename)
         {
             keyToCommandMap[key] = new RestartCommand(game);
         }
+        else if (command == "select")
+        {
+            keyToCommandMap[key] = new SelectCommand(game);
+        }
         else if (command.substr(0, 5) == "level")
         {
             int level = std::stoi(command.substr(5));
@@ -66,6 +71,10 @@ void InputHandler::loadCommandsFromFile(const std::string &filename)
         else if (command == "quit")
         {
             keyToCommandMap[key] = new QuitCommand(game);
+        }
+        else if (command == "menu")
+        {
+            keyToCommandMap[key] = new MenuCommand(game);
         }
         else if (command == "exit")
         {
@@ -92,7 +101,31 @@ Command *InputHandler::handleInput()
 
 void InputHandler::check()
 {
-    //
+    std::set<char> usedKeys;
+    std::set<std::string> usedCommands;
+    std::set<std::string> allCommands = {"MoveUp", "MoveDown", "MoveLeft", "MoveRight", "Start", "Restart", "Select", "SelectLevel", "Quit", "Menu", "Exit"};
+
+    for (auto &pair : keyToCommandMap)
+    {
+        if (!usedKeys.insert(pair.first).second) // Если ключ уже использовался
+        {
+            throw std::runtime_error("Key " + std::string(1, pair.first) + " assigned to two commands");
+        }
+
+        std::string commandName = typeid(*pair.second).name();
+        if (!usedCommands.insert(commandName).second) // Если команда уже была назначена
+        {
+            throw std::runtime_error("Command " + commandName + " assigned to two keys");
+        }
+    }
+
+    for (auto &command : allCommands)
+    {
+        if (usedCommands.find(command) == usedCommands.end()) // Если команда не назначена
+        {
+            throw std::runtime_error("Command " + command + " is not assigned to any key");
+        }
+    }
 }
 
 /**

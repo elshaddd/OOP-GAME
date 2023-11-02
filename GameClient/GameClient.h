@@ -18,14 +18,17 @@ private:
     InputHandler inputHandler;
 
 public:
-
     GameClient(InputSource *inputSource = new ConsoleInputSource);
-    
+
     void loop();
-    
+
     void displayMenu();
-    
-    void display();
+
+    void displaySelecting();
+
+    void displayPause();
+
+    void displayRun();
 
     void displayOver();
 };

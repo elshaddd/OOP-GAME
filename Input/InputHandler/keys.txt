@@ -3,9 +3,11 @@ s down
 a left
 d right
 1 start
+2 select
 0 exit
-m quit
+` quit
 n restart
+m menu
 z level1
 x level2
 c level3

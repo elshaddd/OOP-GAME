@@ -18,9 +18,12 @@ enum Characteristics
 
 enum Status
 {
+    MENU,
+    SELECTING,
     PAUSE,
     RUN,
     PASS,
     OVER
 };
+
 #endif

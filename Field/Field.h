@@ -6,8 +6,8 @@
 #include <algorithm>
 #include <iostream>
 
-#define MAX_HEIGHT 55
-#define MAX_WIDTH 115
+#define MAX_HEIGHT 45
+#define MAX_WIDTH 93
 #define MIN_HEIGHT 11
 #define MIN_WIDTH 23
 

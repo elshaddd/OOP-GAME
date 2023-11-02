@@ -3,15 +3,16 @@
 /**
  * The GameClient constructor initializes a GameClient object with the given input source, player, game
  * field, controller, game, and input handler.
- *
+ * 
  * @param inputSource The input source is an object that provides input to the game client. It could be
- * a keyboard, mouse, or any other input device.
+ * a keyboard, a mouse, or any other input device. The game client uses this input source to receive
+ * user input and respond accordingly.
  */
 GameClient::GameClient(InputSource *inputSource) : player(), gameField(), controller(player, gameField), game(player, gameField, controller), inputHandler(&controller, &game, *inputSource) {}
 
 /**
- * The loop function in the GameClient class continuously displays menus, handles user input, updates
- * the game state, and displays the game until it is over or the player passes to the next level.
+ * The loop function in the GameClient class continuously displays different menus and game screens
+ * based on the current game status.
  */
 void GameClient::loop()
 {
@@ -23,20 +24,25 @@ void GameClient::loop()
         game.checkRun();
         switch (game.getStatus())
         {
-        case PAUSE:
+        case MENU:
             displayMenu();
             break;
+        case SELECTING:
+            displaySelecting();
+            break;
+        case PAUSE:
+            displayPause();
+            break;
         case RUN:
-            display();
+            displayRun();
             break;
         case OVER:
             displayOver();
-            game.reset();
             break;
         case PASS:
             game.setStatus(RUN);
             game.nextLevel();
-            display();
+            displayRun();
             break;
         }
     }
@@ -50,11 +56,34 @@ void GameClient::displayMenu()
     system("cls");
 #endif
     std::cout << "1 - Start game\n";
+    std::cout << "2 - Select level\n";
     std::cout << "0 - Exit\n";
+}
+
+void GameClient::displaySelecting()
+{
+#ifdef LIN
+    system("clear");
+#else
+    system("cls");
+#endif
+    std::cout << "` - Back\n";
     std::cout << "z - First level   x - Second level   c - Third level   v - Fourth level\n";
 }
 
-void GameClient::display()
+void GameClient::displayPause()
+{
+#ifdef LIN
+    system("clear");
+#else
+    system("cls");
+#endif
+    std::cout << "` - Resume\n";
+    std::cout << "n - Restart\n";
+    std::cout << "m - Menu\n";
+}
+
+void GameClient::displayRun()
 {
     std::ostringstream buffer;
     buffer << "HP: " << player.getHealth() << ' ' << "SCORE: " << player.getScore() /*<< " DAMAGE: "<< player.getDamage()*/ << '\n';
@@ -92,7 +121,7 @@ void GameClient::display()
         }
         buffer << "\n";
     }
-    buffer << "Press (m) to exit the level\n";
+    buffer << "Press (`) to pause\n";
 
 #ifdef LIN
     system("clear");
@@ -109,5 +138,5 @@ void GameClient::displayOver()
 #else
     system("cls");
 #endif
-    std::cout << "GAME OVER\nStart a new game (n) or quit (m)?\n>> ";
+    std::cout << "GAME OVER\nRestart (n) or back to menu (m)?\n>> ";
 }
