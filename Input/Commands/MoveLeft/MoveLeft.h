@@ -1,14 +1,15 @@
 #ifndef MOVE_LEFT_COMMAND_H
 #define MOVE_LEFT_COMMAND_H
 #include "../Command.h"
+#include "../../../Control/IMove.h"
 
 class MoveLeftCommand : public Command
 {
 private:
-    PlayerController &controller;
+    IMove *controller;
 
 public:
-    MoveLeftCommand(PlayerController &controller);
+    MoveLeftCommand(IMove *controller);
     void execute() override;
     // Command *clone() override;
 };

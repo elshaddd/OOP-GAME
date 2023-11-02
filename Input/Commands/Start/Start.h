@@ -2,14 +2,15 @@
 #define START_COMMAND_H
 #include "../Command.h"
 #include <functional>
+#include "../../../Game/IGame.h"
 
 class StartCommand : public Command
 {
 private:
-    Game &game;
+    IGame *game;
 
 public:
-    StartCommand(Game &game);
+    StartCommand(IGame *game);
 
     void execute() override;
 };

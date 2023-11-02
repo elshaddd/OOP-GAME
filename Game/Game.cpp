@@ -133,22 +133,22 @@ void Game::setStatus(Status newStatus)
     gameStatus = newStatus;
 }
 
-/**
- * The function "getLevel" returns the value of the variable "level".
- * 
- * @return The level of the game.
- */
-int Game::getLevel()
-{
-    return level;
-}
+// /**
+//  * The function "getLevel" returns the value of the variable "level".
+//  * 
+//  * @return The level of the game.
+//  */
+// int Game::getLevel()
+// {
+//     return level;
+// }
 
-/**
- * The function sets the level of the game to a new value.
- * 
- * @param newLevel The new level that you want to set for the game.
- */
-void Game::setLevel(int newLevel)
-{
-    level = newLevel;
-}
+// /**
+//  * The function sets the level of the game to a new value.
+//  * 
+//  * @param newLevel The new level that you want to set for the game.
+//  */
+// void Game::setLevel(int newLevel)
+// {
+//     level = newLevel;
+// }

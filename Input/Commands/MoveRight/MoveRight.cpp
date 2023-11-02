@@ -1,11 +1,10 @@
 #include "MoveRight.h"
-#include "../../../Control/PlayerController.h"
 
-MoveRightCommand::MoveRightCommand(PlayerController &controller) : controller(controller) {}
+MoveRightCommand::MoveRightCommand(IMove *controller) : controller(controller) {}
 
 void MoveRightCommand::execute()
 {
-    controller.movePlayer(Direction::RIGHT);
+    controller->movePlayer(Direction::RIGHT);
 }
 
 // Command *MoveRightCommand::clone()

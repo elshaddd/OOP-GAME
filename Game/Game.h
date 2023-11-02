@@ -1,12 +1,13 @@
 #ifndef GAME_H
 #define GAME_H
 #include <sstream>
+#include "IGame.h"
 #include "../Player/Player.h"
 #include "../Field/Field.h"
 #include "../Control/PlayerController.h"
 #include "../Generators/FieldGenerator.h"
 
-class Game
+class Game : public IGame
 {
 private:
     GameField &gameField;
@@ -20,13 +21,15 @@ public:
 
     void leveling();
 
-    void start();
+//
+    void start() override;
 
-    void restart();
+    void restart() override;
 
-    void selectLevel(int level);
+    void selectLevel(int level) override;
     
-    void quit();
+    void quit() override;
+//
 
     void nextLevel();
 
@@ -37,10 +40,10 @@ public:
     Status getStatus();
 
     void setStatus(Status newStatus);
+// 
+    // int getLevel();
 
-    int getLevel();
-
-    void setLevel(int newLevel);
+    // void setLevel(int newLevel);
 };
 
 #endif

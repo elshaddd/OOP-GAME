@@ -2,14 +2,15 @@
 #define RESTART_COMMAND_H
 #include "../Command.h"
 #include <functional>
+#include "../../../Game/IGame.h"
 
 class RestartCommand : public Command
 {
 private:
-    Game &game;
+    IGame *game;
     
 public:
-    RestartCommand(Game &game);
+    RestartCommand(IGame *game);
 
     void execute() override;
 };

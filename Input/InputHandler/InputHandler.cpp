@@ -1,18 +1,18 @@
 #include "InputHandler.h"
 
 /**
- * The InputHandler constructor initializes the InputHandler object with references to a
- * PlayerController, Game, and InputSource, and loads commands from a file.
- * 
- * @param controller The `PlayerController` object that will handle the player's input and control the
+ * The InputHandler constructor initializes the controller, game, and inputSource objects, and loads
+ * commands from a file.
+ *
+ * @param controller The `controller` parameter is a pointer to an object that implements the `IMove`
+ * interface. This object is responsible for handling the movement of the player or character in the
  * game.
- * @param game The "game" parameter is an instance of the Game class. It is used to access and
- * manipulate game-related data and functionality.
+ * @param game The "game" parameter is an object of type IGame, which represents the game being played.
+ * It is used to interact with the game and perform game-related operations.
  * @param inputSource The input source is an object that provides the input for the game. It could be a
- * keyboard, a mouse, or any other input device. The InputHandler uses this input source to get the
- * user's input and process it accordingly.
+ * keyboard, a mouse, or any other input device.
  */
-InputHandler::InputHandler(PlayerController &controller, Game &game, InputSource &inputSource) : controller(controller), game(game), inputSource(inputSource)
+InputHandler::InputHandler(IMove *controller, IGame *game, InputSource &inputSource) : controller(controller), game(game), inputSource(inputSource)
 {
 #ifdef LIN
     loadCommandsFromFile("/home/elshad/OOP/game/Input/InputHandler/keys.txt");

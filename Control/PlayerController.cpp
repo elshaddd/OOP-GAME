@@ -39,11 +39,6 @@ void PlayerController::modifyHealth(int value)
 {
     int currentHealth = playerRef.getHealth();
     playerRef.setHealth(currentHealth + value);
-    // if (playerRef.getHealth() == 0)
-    // {
-    //     std::cout << "GAME OVER\n";
-    //     std::exit(0);
-    // }
 }
 
 void PlayerController::modifyScore(int points)
@@ -65,8 +60,10 @@ void PlayerController::setCoordinates(std::pair<int, int> coords)
         if (gameFieldRef.getCell(coords).isPassable())
             coordinates = coords;
         if (gameFieldRef.getCell(coords).getEvent() != nullptr)
+        {
             gameFieldRef.getCell(coords).getEvent()->OnPlayerStep(*this);
             gameFieldRef.getCell(coords).removeEvent();
+        }
     }
 }
 
@@ -74,17 +71,3 @@ std::pair<int, int> PlayerController::getCoordinates()
 {
     return coordinates;
 }
-
-// PlayerController::PlayerController(const PlayerController &other)
-//     : playerRef(other.playerRef), gameFieldRef(other.gameFieldRef), coordinates(other.coordinates) {}
-
-// PlayerController &PlayerController::operator=(const PlayerController &other)
-// {
-//     if (this != &other)
-//     {
-//         playerRef = other.playerRef;
-//         gameFieldRef = other.gameFieldRef;
-//         coordinates = other.coordinates;
-//     }
-//     return *this;
-// }

@@ -2,15 +2,16 @@
 #define SELECT_LEVEL_COMMAND_H
 #include "../Command.h"
 #include <functional>
+#include "../../../Game/IGame.h"
 
 class SelectLevelCommand : public Command
 {
 private:
-    Game &game;
+    IGame *game;
     int level;
 
 public:
-    SelectLevelCommand(Game &game, int level);
+    SelectLevelCommand(IGame *game, int level);
 
     void execute() override;
 };

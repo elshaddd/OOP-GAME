@@ -2,9 +2,6 @@
 #define COMMAND_H
 #include "../../Util/Enums.h"
 
-class PlayerController;
-class Game;
-
 class Command
 {
 public:

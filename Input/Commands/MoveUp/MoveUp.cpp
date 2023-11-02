@@ -1,11 +1,10 @@
 #include "MoveUp.h"
-#include "../../../Control/PlayerController.h"
 
-MoveUpCommand::MoveUpCommand(PlayerController &controller) : controller(controller) {}
+MoveUpCommand::MoveUpCommand(IMove *controller) : controller(controller) {}
 
 void MoveUpCommand::execute()
 {
-    controller.movePlayer(Direction::UP);
+    controller->movePlayer(Direction::UP);
 }
 
 // Command *MoveUpCommand::clone()

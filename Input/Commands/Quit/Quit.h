@@ -2,14 +2,15 @@
 #define QUIT_COMMAND_H
 #include "../Command.h"
 #include <functional>
+#include "../../../Game/IGame.h"
 
 class QuitCommand : public Command
 {
 private:
-    Game &game;
+    IGame *game;
     
 public:
-    QuitCommand(Game &game);
+    QuitCommand(IGame *game);
 
     void execute() override;
 };

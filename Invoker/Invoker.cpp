@@ -1,8 +1,6 @@
 #include "Invoker.h"
 
-Invoker::Invoker(Command *c) : command(c) {}
-
-void Invoker::call()
+void Invoker::call(Command *command)
 {
     if (command)
         command->execute();

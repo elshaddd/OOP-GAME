@@ -3,11 +3,11 @@
 /**
  * The GameClient constructor initializes a GameClient object with the given input source, player, game
  * field, controller, game, and input handler.
- * 
+ *
  * @param inputSource The input source is an object that provides input to the game client. It could be
  * a keyboard, mouse, or any other input device.
  */
-GameClient::GameClient(InputSource *inputSource) : player(), gameField(), controller(player, gameField), game(player, gameField, controller), inputHandler(controller, game, *inputSource) {}
+GameClient::GameClient(InputSource *inputSource) : player(), gameField(), controller(player, gameField), game(player, gameField, controller), inputHandler(&controller, &game, *inputSource) {}
 
 /**
  * The loop function in the GameClient class continuously displays menus, handles user input, updates
@@ -16,11 +16,10 @@ GameClient::GameClient(InputSource *inputSource) : player(), gameField(), contro
 void GameClient::loop()
 {
     displayMenu();
+    Invoker invoker;
     while (true)
     {
-        Invoker invoker(inputHandler.handleInput());
-        invoker.call();
-
+        invoker.call(inputHandler.handleInput());
         game.checkRun();
         switch (game.getStatus())
         {

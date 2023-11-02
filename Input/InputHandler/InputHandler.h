@@ -3,8 +3,8 @@
 #include <map>
 #include <fstream>
 #include <functional>
-#include "../../Control/PlayerController.h"
-#include "../../Game/Game.h"
+#include "../../Control/IMove.h"
+#include "../../Game/IGame.h"
 #include "../Commands/Command.h"
 #include "../Commands/MoveUp/MoveUp.h"
 #include "../Commands/MoveDown/MoveDown.h"
@@ -21,13 +21,13 @@ class InputHandler
 {
 private:
     std::map<char, Command *> keyToCommandMap;
-    PlayerController &controller;
-    Game &game;
+    IMove *controller;
+    IGame *game;
     InputSource &inputSource;
     int level;
 
 public:
-    InputHandler(PlayerController &controller, Game &game, InputSource &inputSource);
+    InputHandler(IMove *controller, IGame *game, InputSource &inputSource);
 
     Command *handleInput();
 
