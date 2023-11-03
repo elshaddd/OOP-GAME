@@ -1,13 +1,18 @@
 #ifndef EXIT_COMMAND_H
 #define EXIT_COMMAND_H
 #include "../Command.h"
+#include "../../../Game/IGame.h"
+
 
 class ExitCommand : public Command
 {
-public:
-    void execute() override;
+private:
+    IGame *game;
 
-    // Command *clone() override;
+public:
+    ExitCommand(IGame *game);
+
+    void execute() override;
 };
 
 #endif

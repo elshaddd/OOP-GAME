@@ -5,7 +5,7 @@ d right
 1 start
 2 select
 0 exit
-` quit
+q quit
 n restart
 m menu
 z level1

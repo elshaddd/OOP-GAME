@@ -1,6 +1,5 @@
 #ifndef DISPLAY_AND_LEVEL_H
 #define DISPLAY_AND_LEVEL_H
-
 #include "../Control/PlayerController.h"
 #include "../Generators/FieldGenerator.h"
 #include "../Events/Visitor/EventSymbolVisitor.h"
@@ -47,9 +46,7 @@ void display(GameField &gameField, PlayerController &controller, int &level)
             }
             else if (gameField.getCell(std::make_pair(j, i)).getEvent() != nullptr)
             {
-                // buffer += "? ";
                 EventSymbolVisitor visitor;
-                // char symbol = gameField.getCell(std::make_pair(j, i)).getEvent()->accept(visitor);
                 buffer += gameField.getCell(std::make_pair(j, i)).getEvent()->accept(visitor);
                 buffer += " ";
             }

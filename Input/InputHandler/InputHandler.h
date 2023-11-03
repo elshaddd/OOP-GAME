@@ -5,6 +5,14 @@
 #include <fstream>
 #include <typeinfo>
 #include <functional>
+
+#include <iostream>
+#include <string>
+#include <regex>
+#include <map>
+#include <vector>
+#include <sstream>
+
 #include "../../Control/IMove.h"
 #include "../../Game/IGame.h"
 #include "../Commands/Command.h"
@@ -36,6 +44,8 @@ public:
     Command *handleInput();
 
     void loadCommandsFromFile(const std::string &filename);
+
+    void check_file(const std::string& filename);
 
     void check();
 

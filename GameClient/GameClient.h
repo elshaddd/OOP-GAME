@@ -6,7 +6,7 @@
 #include "../Invoker/Invoker.h"
 #include "../Input/InputSource/InputSource.h"
 #include "../Input/InputSource/ConsoleInputSource/ConsoleInputSource.h"
-#include "../Events/Visitor/EventSymbolVisitor.h"
+#include "../Util/Display.h"
 
 class GameClient
 {
@@ -16,21 +16,22 @@ private:
     PlayerController controller;
     Game game;
     InputHandler inputHandler;
+    Display display;
 
 public:
     GameClient(InputSource *inputSource = new ConsoleInputSource);
 
     void loop();
 
-    void displayMenu();
+    // void displayMenu();
 
-    void displaySelecting();
+    // void displaySelecting();
 
-    void displayPause();
+    // void displayPause();
 
-    void displayRun();
+    // void displayRun();
 
-    void displayOver();
+    // void displayOver();
 };
 
 #endif

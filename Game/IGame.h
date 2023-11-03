@@ -15,6 +15,8 @@ public:
     virtual void quit() = 0;
 
     virtual void menu() = 0;
+
+    virtual void exit() = 0;
 };
 
 #endif

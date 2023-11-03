@@ -1,9 +1,10 @@
 #include "Exit.h"
-#include "../../../Control/PlayerController.h"
+
+ExitCommand::ExitCommand(IGame *game) : game(game) {}
 
 void ExitCommand::execute()
 {
-    exit(0);
+    game->exit();
 }
 
 // Command *ExitCommand::clone()

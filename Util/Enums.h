@@ -23,7 +23,8 @@ enum Status
     PAUSE,
     RUN,
     PASS,
-    OVER
+    OVER,
+    EXIT
 };
 
 #endif

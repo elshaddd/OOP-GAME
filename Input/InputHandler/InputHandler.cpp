@@ -14,12 +14,12 @@
  */
 InputHandler::InputHandler(IMove *controller, IGame *game, InputSource &inputSource) : controller(controller), game(game), inputSource(inputSource)
 {
+
 #ifdef LIN
     loadCommandsFromFile("/home/elshad/OOP/game/Input/InputHandler/keys.txt");
 #else
     loadCommandsFromFile("C:\\OOP\\Input\\InputHandler\\keys.txt");
 #endif
-    check();
 }
 
 /**
@@ -30,6 +30,7 @@ InputHandler::InputHandler(IMove *controller, IGame *game, InputSource &inputSou
  */
 void InputHandler::loadCommandsFromFile(const std::string &filename)
 {
+    check_file(filename);
     std::ifstream file(filename);
     char key;
     std::string command;
@@ -78,9 +79,11 @@ void InputHandler::loadCommandsFromFile(const std::string &filename)
         }
         else if (command == "exit")
         {
-            keyToCommandMap[key] = new ExitCommand();
+            keyToCommandMap[key] = new ExitCommand(game);
         }
     }
+
+    file.close();
 }
 
 /**
@@ -99,31 +102,48 @@ Command *InputHandler::handleInput()
     return nullptr;
 }
 
-void InputHandler::check()
+/**
+ * The function `check_file` reads a file containing key-command mappings and checks for any errors or
+ * missing mappings.
+ *
+ * @param filename The `filename` parameter is a string that represents the name of the file to be
+ * checked.
+ */
+void InputHandler::check_file(const std::string &filename)
 {
-    std::set<char> usedKeys;
-    std::set<std::string> usedCommands;
-    std::set<std::string> allCommands = {"MoveUp", "MoveDown", "MoveLeft", "MoveRight", "Start", "Restart", "Select", "SelectLevel", "Quit", "Menu", "Exit"};
+    std::map<std::string, std::string> key_command_map;
+    std::map<std::string, std::string> command_key_map;
 
-    for (auto &pair : keyToCommandMap)
+    std::ifstream file(filename);
+    if (!file.is_open())
     {
-        if (!usedKeys.insert(pair.first).second) // Если ключ уже использовался
-        {
-            throw std::runtime_error("Key " + std::string(1, pair.first) + " assigned to two commands");
-        }
-
-        std::string commandName = typeid(*pair.second).name();
-        if (!usedCommands.insert(commandName).second) // Если команда уже была назначена
-        {
-            throw std::runtime_error("Command " + commandName + " assigned to two keys");
-        }
+        throw std::runtime_error("Не удалось открыть файл " + filename + "\n");
     }
 
-    for (auto &command : allCommands)
+    std::string key, command;
+    while (file >> key >> command)
     {
-        if (usedCommands.find(command) == usedCommands.end()) // Если команда не назначена
+        if (key_command_map.find(key) != key_command_map.end())
         {
-            throw std::runtime_error("Command " + command + " is not assigned to any key");
+            throw std::runtime_error("Ошибка: клавиша " + key + " назначена на две команды: " + key_command_map[key] + " и " + command + "\n");
+        }
+        if (command_key_map.find(command) != command_key_map.end())
+        {
+            throw std::runtime_error("Ошибка: команда " + command + " назначена на две клавиши: " + command_key_map[command] + " и " + key + "\n");
+        }
+        key_command_map[key] = command;
+        command_key_map[command] = key;
+    }
+
+    file.close();
+
+    std::string commands[] = {"up", "down", "left", "right", "start", "select", "exit", "quit", "restart", "menu", "level1", "level2", "level3", "level4"};
+
+    for (const auto &command : commands)
+    {
+        if (command_key_map.find(command) == command_key_map.end())
+        {
+            throw std::runtime_error("Ошибка: команда " + command + " не назначена на клавишу" + "\n");
         }
     }
 }

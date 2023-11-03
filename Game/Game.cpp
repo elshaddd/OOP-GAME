@@ -109,9 +109,12 @@ void Game::menu()
         gameStatus = MENU;
 }
 
-/**
- * The function "nextLevel" increases the level by one and calls the "leveling" function.
- */
+void Game::exit()
+{
+    if(gameStatus == MENU)
+        gameStatus = EXIT;
+}
+
 void Game::nextLevel()
 {
     level++;

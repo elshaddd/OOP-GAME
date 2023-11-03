@@ -33,6 +33,8 @@ public:
     void quit() override;
 
     void menu() override;
+
+    void exit() override;
     //
 
     void nextLevel();
