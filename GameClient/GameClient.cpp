@@ -44,6 +44,9 @@ void GameClient::loop()
             game.nextLevel();
             display.displayRun();
             break;
+        case WIN:
+            game.reset();
+            display.displayWin();
         }
     }
 }

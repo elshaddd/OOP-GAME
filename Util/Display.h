@@ -30,6 +30,8 @@ public:
     void displayRun();
 
     void displayOver();
+
+    void displayWin();
 };
 
 #endif

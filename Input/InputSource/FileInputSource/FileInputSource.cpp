@@ -17,5 +17,5 @@ char FileInputSource::getInput()
     {
         return key;
     }
-    return '\0'; // ret 0 if EOF
+    exit(0); // ret 0 if EOF
 }

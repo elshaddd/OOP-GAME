@@ -94,3 +94,13 @@ void Display::displayOver()
 #endif
     std::cout << "GAME OVER\nRestart (n) or back to menu (m)?\n>> ";
 }
+
+void Display::displayWin()
+{
+#ifdef LIN
+    system("clear");
+#else
+    system("cls");
+#endif
+    std::cout << "YOU WIN\nRestart game (q) or back to menu (m)?\n>> ";
+}

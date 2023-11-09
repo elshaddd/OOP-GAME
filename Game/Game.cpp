@@ -98,6 +98,8 @@ void Game::quit()
         gameStatus = RUN;
     else if (gameStatus == RUN)
         gameStatus = PAUSE;
+    else if (gameStatus == WIN)
+        gameStatus = RUN;    
 }
 
 /**
@@ -105,7 +107,7 @@ void Game::quit()
  */
 void Game::menu()
 {
-    if (gameStatus == PAUSE || gameStatus == OVER)
+    if (gameStatus == PAUSE || gameStatus == OVER || gameStatus == WIN)
         gameStatus = MENU;
 }
 
@@ -128,6 +130,7 @@ void Game::reset()
 {
     player = Player();
     level = 1;
+    leveling();
 }
 
 /**
@@ -139,7 +142,10 @@ void Game::checkRun()
     if (player.getHealth() == 0)
         gameStatus = OVER;
     else if (controller.getCoordinates() == gameField.getExit())
-        gameStatus = PASS;
+        if(level == 4)
+            gameStatus = WIN;
+        else 
+            gameStatus = PASS;
 }
 
 /**

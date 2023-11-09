@@ -24,6 +24,7 @@ enum Status
     RUN,
     PASS,
     OVER,
+    WIN,
     EXIT
 };
 

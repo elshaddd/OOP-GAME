@@ -6,11 +6,13 @@
 #include "Util/DisplayAndLeveling.h"
 #include "Game/Game.h"
 #include "Input/InputSource/ConsoleInputSource/ConsoleInputSource.h"
+#include "Input/InputSource/FileInputSource/FileInputSource.h"
 #include "GameClient/GameClient.h"
 #include <unistd.h>
 
 int main()
 {
-    GameClient gameC;
+    InputSource *fileInput = new FileInputSource("/home/elshad/OOP/game/com.txt");
+    GameClient gameC(fileInput);
     gameC.loop();
 }
