@@ -30,7 +30,7 @@ InputHandler::InputHandler(IMove *controller, IGame *game, InputSource &inputSou
  */
 void InputHandler::loadCommandsFromFile(const std::string &filename)
 {
-    check_file(filename);
+    checkFile(filename);
     std::ifstream file(filename);
     char key;
     std::string command;
@@ -82,8 +82,6 @@ void InputHandler::loadCommandsFromFile(const std::string &filename)
             keyToCommandMap[key] = new ExitCommand(game);
         }
     }
-
-    file.close();
 }
 
 /**
@@ -103,13 +101,13 @@ Command *InputHandler::handleInput()
 }
 
 /**
- * The function `check_file` reads a file containing key-command mappings and checks for any errors or
+ * The function `checkFile` reads a file containing key-command mappings and checks for any errors or
  * missing mappings.
  *
  * @param filename The `filename` parameter is a string that represents the name of the file to be
  * checked.
  */
-void InputHandler::check_file(const std::string &filename)
+void InputHandler::checkFile(const std::string &filename)
 {
     std::map<std::string, std::string> key_command_map;
     std::map<std::string, std::string> command_key_map;
@@ -134,8 +132,6 @@ void InputHandler::check_file(const std::string &filename)
         key_command_map[key] = command;
         command_key_map[command] = key;
     }
-
-    file.close();
 
     std::string commands[] = {"up", "down", "left", "right", "start", "select", "exit", "quit", "restart", "menu", "level1", "level2", "level3", "level4"};
 

@@ -21,7 +21,7 @@ void Display::displaySelecting()
 #else
     system("cls");
 #endif
-    std::cout << "` - Back\n";
+    std::cout << "q - Back\n";
     std::cout << "z - First level   x - Second level   c - Third level   v - Fourth level\n";
 }
 

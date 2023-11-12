@@ -12,7 +12,8 @@
 
 int main()
 {
-    InputSource *fileInput = new FileInputSource("/home/elshad/OOP/game/com.txt");
-    GameClient gameC(fileInput);
+    // InputSource *fileInput = new FileInputSource("/home/elshad/OOP/game/com.txt");
+    // GameClient gameC(fileInput);
+    GameClient gameC;
     gameC.loop();
 }

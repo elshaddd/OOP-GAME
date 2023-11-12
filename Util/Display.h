@@ -13,13 +13,9 @@ private:
     Player &player;
     GameField &gameField;
     PlayerController &controller;
-    // Game game;
-    // InputHandler inputHandler;
 
 public:
     Display(Player &player, GameField &gameField, PlayerController &controller);
-
-    // void loop();
 
     void displayMenu();
 

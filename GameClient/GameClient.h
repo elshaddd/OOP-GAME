@@ -22,16 +22,6 @@ public:
     GameClient(InputSource *inputSource = new ConsoleInputSource);
 
     void loop();
-
-    // void displayMenu();
-
-    // void displaySelecting();
-
-    // void displayPause();
-
-    // void displayRun();
-
-    // void displayOver();
 };
 
 #endif

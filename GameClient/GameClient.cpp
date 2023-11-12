@@ -3,7 +3,7 @@
 /**
  * The GameClient constructor initializes a GameClient object with the given input source, player, game
  * field, controller, game, and input handler.
- * 
+ *
  * @param inputSource The input source is an object that provides input to the game client. It could be
  * a keyboard, or any other file. The game client uses this input source to receive
  * user input and respond accordingly.
@@ -18,7 +18,7 @@ void GameClient::loop()
 {
     display.displayMenu();
     Invoker invoker;
-    while (game.getStatus()!= EXIT)
+    while (game.getStatus() != EXIT)
     {
         invoker.call(inputHandler.handleInput());
         game.checkRun();

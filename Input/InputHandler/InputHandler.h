@@ -1,17 +1,7 @@
 #ifndef INPUT_HANDLER_H
 #define INPUT_HANDLER_H
 #include <map>
-#include <set>
 #include <fstream>
-#include <typeinfo>
-#include <functional>
-
-#include <iostream>
-#include <string>
-#include <regex>
-#include <map>
-#include <vector>
-#include <sstream>
 
 #include "../../Control/IMove.h"
 #include "../../Game/IGame.h"
@@ -36,7 +26,6 @@ private:
     IMove *controller;
     IGame *game;
     InputSource &inputSource;
-    int level;
 
 public:
     InputHandler(IMove *controller, IGame *game, InputSource &inputSource);
@@ -45,9 +34,7 @@ public:
 
     void loadCommandsFromFile(const std::string &filename);
 
-    void check_file(const std::string& filename);
-
-    void check();
+    void checkFile(const std::string &filename);
 
     ~InputHandler();
 };

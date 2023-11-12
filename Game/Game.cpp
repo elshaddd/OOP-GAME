@@ -5,7 +5,7 @@
  * PlayerController.
  * 
  * @param player The player object represents the player in the game. It contains information about the
- * player's name, score, and other relevant data.
+ * player's health score, and other relevant data.
  * @param gameField The gameField parameter is an object of the GameField class. It represents the game
  * field or board where the game is played.
  * @param controller The controller parameter is an instance of the PlayerController class. It is
@@ -94,12 +94,10 @@ void Game::quit()
 {
     if (gameStatus == SELECTING)
         gameStatus = MENU;
-    else if (gameStatus == PAUSE)
+    else if (gameStatus == PAUSE || gameStatus == WIN)
         gameStatus = RUN;
     else if (gameStatus == RUN)
         gameStatus = PAUSE;
-    else if (gameStatus == WIN)
-        gameStatus = RUN;    
 }
 
 /**
