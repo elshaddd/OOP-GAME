@@ -1,12 +1,12 @@
 #ifndef FILE_INPUT_SOURCE_H
 #define FILE_INPUT_SOURCE_H
 #include "../InputSource.h"
-#include <fstream>
+#include "../../../FileWrapper/FileWrapper.h"
 
 class FileInputSource : public InputSource
 {
 private:
-    std::ifstream file;
+    FileWrapper file;
 
 public:
     FileInputSource(const std::string &filename);

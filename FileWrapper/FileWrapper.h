@@ -15,6 +15,8 @@ public:
     bool readData(char &key, std::string &command);
 
     bool readData(std::string &key, std::string &command);
+
+    bool readData(char &key);
 };
 
 #endif

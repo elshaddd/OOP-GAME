@@ -27,3 +27,11 @@ bool FileWrapper::readData(std::string &key, std::string &command)
     else
         return false;
 }
+
+bool FileWrapper::readData(char &key)
+{
+    if (file >> key)
+        return true;
+    else
+        return false;
+}

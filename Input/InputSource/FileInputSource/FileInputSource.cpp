@@ -12,7 +12,7 @@ FileInputSource::FileInputSource(const std::string &filename) : file(filename) {
 char FileInputSource::getInput()
 {
     char key;
-    if (file >> key)
+    if (file.readData(key))
     {
         return key;
     }
