@@ -5,7 +5,6 @@ PlayerController::PlayerController(Player &player, GameField &gameField) : playe
 void PlayerController::movePlayer(Direction direction)
 {
     std::pair<int, int> temp = {coordinates.first, coordinates.second};
-    std::pair<int, int> temp1 = {coordinates.first, coordinates.second};
     switch (direction)
     {
     case UP:

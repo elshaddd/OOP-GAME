@@ -31,10 +31,10 @@ InputHandler::InputHandler(IMove *controller, IGame *game, InputSource &inputSou
 void InputHandler::loadCommandsFromFile(const std::string &filename)
 {
     checkFile(filename);
-    std::ifstream file(filename);
+    FileWrapper fileWrapper(filename);
     char key;
     std::string command;
-    while (file >> key >> command)
+    while (fileWrapper.readData(key, command))
     {
         if (command == "up")
         {
@@ -112,14 +112,10 @@ void InputHandler::checkFile(const std::string &filename)
     std::map<std::string, std::string> key_command_map;
     std::map<std::string, std::string> command_key_map;
 
-    std::ifstream file(filename);
-    if (!file.is_open())
-    {
-        throw std::runtime_error("Не удалось открыть файл " + filename + "\n");
-    }
-
+    FileWrapper fileWrapper(filename);
     std::string key, command;
-    while (file >> key >> command)
+
+    while (fileWrapper.readData(key, command))
     {
         if (key_command_map.find(key) != key_command_map.end())
         {

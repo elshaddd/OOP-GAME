@@ -41,7 +41,7 @@ public:
 
     void reset();
 
-    void checkRun();
+    void updateStatus();
 
     Status getStatus();
 

@@ -7,8 +7,7 @@ FileInputSource::FileInputSource(const std::string &filename) : file(filename) {
  * the file has been reached.
  *
  * @return a character value. If there is a character available to read from the file, it will return
- * that character. If the end of the file (EOF) has been reached, it will return the null character
- * '\0'.
+ * that character. If the end of the file (EOF) has been reached, it will exit the program.
  */
 char FileInputSource::getInput()
 {

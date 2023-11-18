@@ -21,7 +21,7 @@ void GameClient::loop()
     while (game.getStatus() != EXIT)
     {
         invoker.call(inputHandler.handleInput());
-        game.checkRun();
+        game.updateStatus();
         switch (game.getStatus())
         {
         case MENU:
@@ -39,13 +39,7 @@ void GameClient::loop()
         case OVER:
             display.displayOver();
             break;
-        case PASS:
-            game.setStatus(RUN);
-            game.nextLevel();
-            display.displayRun();
-            break;
         case WIN:
-            game.reset();
             display.displayWin();
         }
     }

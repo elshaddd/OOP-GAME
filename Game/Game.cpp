@@ -3,7 +3,7 @@
 /**
  * The Game constructor initializes a Game object with references to a Player, GameField, and
  * PlayerController.
- * 
+ *
  * @param player The player object represents the player in the game. It contains information about the
  * player's health score, and other relevant data.
  * @param gameField The gameField parameter is an object of the GameField class. It represents the game
@@ -22,11 +22,11 @@ void Game::leveling()
 {
     if (level % 2 == 0)
     {
-        gameField.resize((level * 23) + 1, (level * 11) + 1);
+        gameField.resize((level * MIN_WIDTH) + 1, (level * MIN_HEIGHT) + 1);
     }
     else
     {
-        gameField.resize(level * 23, level * 11);
+        gameField.resize(level * MIN_WIDTH, level * MIN_HEIGHT);
     }
     FieldGenerator generator(gameField);
     generator.generateField();
@@ -73,7 +73,7 @@ void Game::select()
 /**
  * The selectLevel function sets the level of the game and calls the leveling function if the game
  * status is currently set to SELECTING.
- * 
+ *
  * @param level The level parameter is an integer that represents the level that the player wants to
  * select.
  */
@@ -111,7 +111,7 @@ void Game::menu()
 
 void Game::exit()
 {
-    if(gameStatus == MENU)
+    if (gameStatus == MENU)
         gameStatus = EXIT;
 }
 
@@ -135,20 +135,23 @@ void Game::reset()
  * The function checks if the player's health is zero or if the player has reached the exit
  * coordinates, and updates the game status accordingly.
  */
-void Game::checkRun()
+void Game::updateStatus()
 {
     if (player.getHealth() == 0)
         gameStatus = OVER;
     else if (controller.getCoordinates() == gameField.getExit())
-        if(level == 4)
+        if (level == 4)
+        {
             gameStatus = WIN;
-        else 
-            gameStatus = PASS;
+            reset();
+        }
+        else
+            nextLevel();
 }
 
 /**
  * The getStatus function returns the current status of the game.
- * 
+ *
  * @return The getStatus() function is returning the value of the gameStatus variable.
  */
 Status Game::getStatus()
@@ -158,7 +161,7 @@ Status Game::getStatus()
 
 /**
  * The function sets the status of the game to a new status.
- * 
+ *
  * @param newStatus The new status that will be assigned to the game.
  */
 void Game::setStatus(Status newStatus)

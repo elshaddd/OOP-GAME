@@ -18,6 +18,7 @@
 #include "../Commands/Menu/Menu.h"
 #include "../Commands/Exit/Exit.h"
 #include "../InputSource/InputSource.h"
+#include "../../FileWrapper/FileWrapper.h"
 
 class InputHandler
 {

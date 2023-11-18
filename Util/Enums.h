@@ -22,7 +22,6 @@ enum Status
     SELECTING,
     PAUSE,
     RUN,
-    PASS,
     OVER,
     WIN,
     EXIT
