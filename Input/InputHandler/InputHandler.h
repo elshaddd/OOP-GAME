@@ -6,10 +6,10 @@
 #include "../../Control/IMove.h"
 #include "../../Game/IGame.h"
 #include "../Commands/Command.h"
-#include "../Commands/MoveUp/MoveUp.h"
-#include "../Commands/MoveDown/MoveDown.h"
-#include "../Commands/MoveLeft/MoveLeft.h"
-#include "../Commands/MoveRight/MoveRight.h"
+#include "../Commands/Move/Move.h"
+// #include "../Commands/MoveDown/MoveDown.h"
+// #include "../Commands/MoveLeft/MoveLeft.h"
+// #include "../Commands/MoveRight/MoveRight.h"
 #include "../Commands/Start/Start.h"
 #include "../Commands/Restart/Restart.h"
 #include "../Commands/Select/Select.h"
@@ -19,6 +19,7 @@
 #include "../Commands/Exit/Exit.h"
 #include "../InputSource/InputSource.h"
 #include "../../FileWrapper/FileWrapper.h"
+#include "FileChecker.h"
 
 class InputHandler
 {
@@ -34,8 +35,6 @@ public:
     Command *handleInput();
 
     void loadCommandsFromFile(const std::string &filename);
-
-    void checkFile(const std::string &filename);
 
     ~InputHandler();
 };

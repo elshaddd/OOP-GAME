@@ -1,15 +1,16 @@
-#ifndef MOVE_DOWN_COMMAND_H
-#define MOVE_DOWN_COMMAND_H
+#ifndef MOVE_COMMAND_H
+#define MOVE_COMMAND_H
 #include "../Command.h"
 #include "../../../Control/IMove.h"
 
-class MoveDownCommand : public Command
+class MoveCommand : public Command
 {
 private:
     IMove *controller;
+    Direction direction;
 
 public:
-    MoveDownCommand(IMove *controller);
+    MoveCommand(IMove *controller, Direction direction);
     void execute() override;
     // Command *clone() override;
 };

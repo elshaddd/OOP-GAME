@@ -1,4 +1,5 @@
 #ifndef FILE_WRAPPER_H
+#define FILE_WRAPPER_H
 #include "iostream"
 #include "fstream"
 #include "string"
