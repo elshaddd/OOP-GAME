@@ -6,6 +6,7 @@
 #include "../Field/Field.h"
 #include "../Control/PlayerController.h"
 #include "../Generators/FieldGenerator.h"
+#include "../Observer/IGameObserver.h"
 
 class Game : public IGame
 {
@@ -16,7 +17,7 @@ private:
     int level = 1;
     Status gameStatus = MENU;
 
-    std::vector<class Observer *> views;
+    IGameObserver *view;
 
 public:
     Game(Player &player, GameField &gameField, PlayerController &controller);
@@ -48,8 +49,8 @@ public:
     Status getStatus();
 
     void setStatus(Status newStatus);
-    
-    void attach(Observer *obs);
+
+    void attach(IGameObserver *obs);
 
     void notify();
 };

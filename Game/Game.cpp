@@ -118,13 +118,12 @@ void Game::setStatus(Status newStatus)
     notify();
 }
 
-void Game::attach(Observer *obs)
+void Game::attach(IGameObserver *obs)
 {
-    views.push_back(obs);
+    view = obs;
 }
 
 void Game::notify()
 {
-    for (const auto &obs : views)
-        obs->update();
+    view->update();
 }

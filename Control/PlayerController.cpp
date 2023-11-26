@@ -74,7 +74,7 @@ std::pair<int, int> PlayerController::getCoordinates()
     return coordinates;
 }
 
-void PlayerController::attach(PlayerControllerObserver *obs)
+void PlayerController::attach(IPCObserver *obs)
 {
     view = obs;
 }

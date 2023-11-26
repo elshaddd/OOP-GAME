@@ -2,21 +2,20 @@
 #define PLAYER_CONTROLLER_OBSERVER_H
 #include "../Control/PlayerController.h"
 #include "../Util/Display.h"
-// #include <utility>
+#include "IPCObserver.h"
 
-class PlayerControllerObserver
+class PlayerControllerObserver : public IPCObserver
 {
-private:
     PlayerController *model;
-    Display display;
-
+    Display *display;
 public:
-    PlayerControllerObserver(PlayerController *model, Display display);
+    PlayerControllerObserver(PlayerController *model, Display *display);
 
-    void update();
+    void update() override;
 
-    PlayerController *getSubject();
+    PlayerController *getSubject() override;
     
+    Display *getDisplay() override;
 };
-
+    
 #endif

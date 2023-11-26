@@ -2,6 +2,6 @@
 *.exe
 .vscode
 *.o
-*.txt
 *.html
 game
+com.txt

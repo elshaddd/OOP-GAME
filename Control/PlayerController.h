@@ -3,7 +3,7 @@
 #include "IMove.h"
 #include "../Player/Player.h"
 #include "../Field/Field.h"
-#include "../Observer/ControllerObserver.h"
+#include "../Observer/IPCObserver.h"
 #include <utility>
 #include <vector>
 
@@ -13,11 +13,11 @@ private:
     GameField &gameFieldRef;
     std::pair<int, int> coordinates;
 
-    PlayerControllerObserver * view;
+    IPCObserver *view;
 
 public:
     Player &playerRef;
-    
+
     PlayerController(Player &player, GameField &gameField);
 
     void movePlayer(Direction direction) override;
@@ -32,7 +32,7 @@ public:
 
     std::pair<int, int> getCoordinates();
 
-    void attach(PlayerControllerObserver *obs);
+    void attach(IPCObserver *obs);
 
     void notify();
 

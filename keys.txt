@@ -1,0 +1,14 @@
+w up
+s down
+a left
+d right
+1 start
+2 select
+0 exit
+q quit
+n restart
+m menu
+z level1
+x level2
+c level3
+v level4
