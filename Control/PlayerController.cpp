@@ -30,7 +30,10 @@ void PlayerController::movePlayer(Direction direction)
         {
             event->OnPlayerStep(*this);
             gameFieldRef.getCell(temp).removeEvent();
+            notify();
+            return;
         }
+        notify();
     }
 }
 
@@ -69,4 +72,14 @@ void PlayerController::setCoordinates(std::pair<int, int> coords)
 std::pair<int, int> PlayerController::getCoordinates()
 {
     return coordinates;
+}
+
+void PlayerController::attach(PlayerControllerObserver *obs)
+{
+    view = obs;
+}
+
+void PlayerController::notify()
+{
+    view->update();
 }

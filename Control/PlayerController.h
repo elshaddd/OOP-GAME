@@ -3,16 +3,21 @@
 #include "IMove.h"
 #include "../Player/Player.h"
 #include "../Field/Field.h"
+#include "../Observer/ControllerObserver.h"
 #include <utility>
+#include <vector>
 
 class PlayerController : public IMove
 {
 private:
-    Player &playerRef;
     GameField &gameFieldRef;
     std::pair<int, int> coordinates;
 
+    PlayerControllerObserver * view;
+
 public:
+    Player &playerRef;
+    
     PlayerController(Player &player, GameField &gameField);
 
     void movePlayer(Direction direction) override;
@@ -26,6 +31,10 @@ public:
     void setCoordinates(std::pair<int, int> coords);
 
     std::pair<int, int> getCoordinates();
+
+    void attach(PlayerControllerObserver *obs);
+
+    void notify();
 
     // PlayerController(const PlayerController &other);
 

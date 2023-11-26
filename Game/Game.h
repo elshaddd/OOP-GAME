@@ -16,6 +16,8 @@ private:
     int level = 1;
     Status gameStatus = MENU;
 
+    std::vector<class Observer *> views;
+
 public:
     Game(Player &player, GameField &gameField, PlayerController &controller);
 
@@ -46,6 +48,10 @@ public:
     Status getStatus();
 
     void setStatus(Status newStatus);
+    
+    void attach(Observer *obs);
+
+    void notify();
 };
 
 #endif
