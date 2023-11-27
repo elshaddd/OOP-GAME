@@ -1,28 +1,10 @@
 #include "InputHandler.h"
 
-/**
- * The InputHandler constructor initializes the controller, game, and inputSource objects, and loads
- * commands from a file.
- *
- * @param controller The `controller` parameter is a pointer to an object that implements the `IMove`
- * interface. This object is responsible for handling the movement of the player or character in the
- * game.
- * @param game The "game" parameter is an object of type IGame, which represents the game being played.
- * It is used to interact with the game and perform game-related operations.
- * @param inputSource The input source is an object that provides the input for the game. It could be a
- * keyboard, a mouse, or any other input device.
- */
 InputHandler::InputHandler(IMove *controller, IGame *game, InputSource &inputSource) : controller(controller), game(game), inputSource(inputSource)
 {
     loadCommandsFromFile("keys.txt");
 }
 
-/**
- * The function "loadCommandsFromFile" reads commands from a file and maps them to specific keys.
- *
- * @param filename The `filename` parameter is a string that represents the name of the file from which
- * the commands will be loaded.
- */
 void InputHandler::loadCommandsFromFile(const std::string &filename)
 {
     FileChecker checker;
@@ -80,12 +62,6 @@ void InputHandler::loadCommandsFromFile(const std::string &filename)
     }
 }
 
-/**
- * The handleInput function checks if a key is mapped to a command and returns the corresponding
- * command if found.
- *
- * @return a pointer to a Command object.
- */
 Command *InputHandler::handleInput()
 {
     char key = inputSource.getInput();
@@ -96,10 +72,6 @@ Command *InputHandler::handleInput()
     return nullptr;
 }
 
-/**
- * The destructor of the InputHandler class that deletes all the commands stored in the
- * keyToCommandMap.
- */
 InputHandler::~InputHandler()
 {
     for (auto &pair : keyToCommandMap)

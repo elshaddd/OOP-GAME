@@ -5,22 +5,22 @@ PlayerControllerObserver::PlayerControllerObserver(PlayerController *model, Disp
     model->attach(this);
 }
 
-PlayerController *PlayerControllerObserver::getSubject()
-{
-    return model;
-}
+// PlayerController *PlayerControllerObserver::getSubject()
+// {
+//     return model;
+// }
 
-Display *PlayerControllerObserver::getDisplay()
-{
-    return display;
-}
+// Display *PlayerControllerObserver::getDisplay()
+// {
+//     return display;
+// }
 
 void PlayerControllerObserver::update()
 {
-    if (getSubject()->playerRef.getHealth() == 0)
+    if (model->playerRef.getHealth() == 0)
     {
-        getDisplay()->displayOver();
+        display->displayOver();
         return;
     }
-    getDisplay()->displayRun();
+    display->displayRun();
 }

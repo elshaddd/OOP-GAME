@@ -8,11 +8,7 @@
  * a keyboard, or any other file. The game client uses this input source to receive
  * user input and respond accordingly.
  */
-GameClient::GameClient(InputSource *inputSource) : player(), gameField(), controller(player, gameField), game(player, gameField, controller), inputHandler(&controller, &game, *inputSource), display(player, gameField, controller) 
-{
-    PlayerControllerObserver(&controller, &display);
-    GameObserver(&game, &display);
-}
+GameClient::GameClient(InputSource *inputSource) : player(), gameField(), controller(player, gameField), game(player, gameField, controller), inputHandler(&controller, &game, *inputSource), display(player, gameField, controller) {}
 
 /**
  * The loop function in the GameClient class continuously displays different menus and game screens
@@ -22,6 +18,8 @@ void GameClient::loop()
 {
     display.displayMenu();
     Invoker invoker;
+    GameObserver obs1(&game, &display);
+    PlayerControllerObserver obs2(&controller, &display);
     while (game.getStatus() != EXIT)
     {
         invoker.call(inputHandler.handleInput());

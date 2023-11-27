@@ -8,14 +8,15 @@ class GameObserver : public IGameObserver
 {
     Game *model;
     Display *display;
+
 public:
     GameObserver(Game *model, Display *display);
 
     void update() override;
 
-    Game *getSubject() override;
+    // Game *getSubject() override;
 
-    Display *getDisplay() override;
+    // Display *getDisplay() override;
 };
 
 #endif

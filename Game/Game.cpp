@@ -21,9 +21,9 @@ void Game::start()
 {
     if (gameStatus == MENU)
     {
-        setStatus(RUN);
         player = Player();
         leveling();
+        setStatus(RUN);
     }
 }
 
@@ -31,9 +31,9 @@ void Game::restart()
 {
     if (gameStatus == OVER || gameStatus == PAUSE)
     {
-        setStatus(RUN);
         player = Player();
         leveling();
+        setStatus(RUN);
     }
 }
 
@@ -100,8 +100,8 @@ void Game::updateStatus()
     else if (controller.getCoordinates() == gameField.getExit())
         if (level == 4)
         {
-            setStatus(WIN);
             reset();
+            setStatus(WIN);
         }
         else
             nextLevel();
