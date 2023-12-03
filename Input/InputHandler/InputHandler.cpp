@@ -1,6 +1,6 @@
 #include "InputHandler.h"
 
-InputHandler::InputHandler(IMove *controller, IGame *game, InputSource &inputSource, MessageDispatcher *dispatcher) : controller(controller), game(game), inputSource(inputSource), dispatcher(dispatcher)
+InputHandler::InputHandler(IMove *controller, IGame *game, InputSource &inputSource) : controller(controller), game(game), inputSource(inputSource)
 {
     loadCommandsFromFile("keys.txt");
 }
@@ -70,24 +70,14 @@ void InputHandler::loadCommandsFromFile(const std::string &filename)
     }
 }
 
-Command *InputHandler::handleInput()
+std::pair<char, Command *> InputHandler::handleInput()
 {
     char key = inputSource.getInput();
     if (keyToCommandMap.find(key) != keyToCommandMap.end())
     {
-        if (dispatcher != nullptr)
-        {
-            CommandExecuted event(key, keyToCommandMap[key]);
-            dispatcher->dispatchEvent(event);
-        }
-        return keyToCommandMap[key];
+        return std::make_pair(key, keyToCommandMap[key]);
     }
-    if (dispatcher != nullptr)
-    {
-        CommandFailed event(key);
-        dispatcher->dispatchEvent(event);
-    }
-    return nullptr;
+    return std::make_pair(key, nullptr);
 }
 
 InputHandler::~InputHandler()

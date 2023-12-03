@@ -25,11 +25,11 @@ void Game::start()
         player = Player();
         leveling();
         setStatus(RUN);
-    }
-    if (dispatcher != nullptr)
-    {
-        StartMessage event(gameField);
-        dispatcher->dispatchEvent(event);
+        if (dispatcher != nullptr)
+        {
+            StartMessage event(gameField);
+            dispatcher->dispatchEvent(event);
+        }
     }
 }
 
@@ -113,7 +113,7 @@ void Game::updateStatus()
     }
     else if (controller.getCoordinates() == gameField.getExit())
     {
-        if (level == 4)
+        if (level == 1)
         {
             reset();
             setStatus(WIN);

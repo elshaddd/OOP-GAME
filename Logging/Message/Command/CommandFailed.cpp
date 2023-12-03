@@ -1,6 +1,6 @@
 #include "CommandFailed.h"
 
-CommandFailed::CommandFailed(char key) {}
+CommandFailed::CommandFailed(char key) : key(key) {}
 
 char CommandFailed::getKey() const
 {

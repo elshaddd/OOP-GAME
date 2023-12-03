@@ -11,7 +11,7 @@ void OutputStreamVisitor::visit(CommandExecuted &msg)
     std::unique_ptr<char, void (*)(void *)> res{
         abi::__cxa_demangle(typeid(*msg.getCommand()).name(), NULL, NULL, &status),
         std::free};
-    os << "Command executed. Input: " << msg.getKey() << ", Command: " << (status == 0 ? res.get() : typeid(*msg.getCommand()).name());
+    os << "Command executed. Input: " << msg.getKey() << ", Command: " << (status == 0 ? res.get() : "Command");
 }
 
 void OutputStreamVisitor::visit(CommandFailed &msg)
@@ -21,8 +21,8 @@ void OutputStreamVisitor::visit(CommandFailed &msg)
 
 void OutputStreamVisitor::visit(StartMessage &msg)
 {
-    os << "New game started. Field size: " << msg.getParameters().first << ':' << msg.getParameters().second
-       << "Player start position: (" << msg.getPosition().first << ", " << msg.getPosition().second << ')';
+    os << "New game started. Field size " << msg.getParameters().first << ':' << msg.getParameters().second
+       << ". Player start position: (" << msg.getPosition().first << ", " << msg.getPosition().second << ')';
 }
 
 void OutputStreamVisitor::visit(WinMessage &msg)

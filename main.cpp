@@ -21,11 +21,11 @@ int main()
     std::cin >> output;
     if (output == "file" || output == "both")
     {
-        dispatcher.addObserver(std::make_shared<FileLogger>("log.txt"));
+        dispatcher.addObserver(new FileLogger("log.txt"));
     }
     if (output == "console" || output == "both")
     {
-        dispatcher.addObserver(std::make_shared<ConsoleLogger>());
+        dispatcher.addObserver(new ConsoleLogger());
     }
     if (output == "nowhere")
     {

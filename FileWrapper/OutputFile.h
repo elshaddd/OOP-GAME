@@ -15,6 +15,8 @@ public:
     ~OutputFile();
     
     std::ofstream &getFile();
+
+    void writeData(std::string &data);
 };
 
 #endif

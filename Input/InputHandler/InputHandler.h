@@ -17,9 +17,6 @@
 #include "../InputSource/InputSource.h"
 #include "../../FileWrapper/FileWrapper.h"
 #include "FileChecker.h"
-#include "../../Logging/Dispatcher/MessageDispatcher.h"
-#include "../../Logging/Message/Command/CommandExecuted.h"
-#include "../../Logging/Message/Command/CommandFailed.h"
 
 class InputHandler
 {
@@ -28,12 +25,11 @@ private:
     IMove *controller;
     IGame *game;
     InputSource &inputSource;
-    MessageDispatcher *dispatcher;
 
 public:
-    InputHandler(IMove *controller, IGame *game, InputSource &inputSource, MessageDispatcher *dispatcher);
+    InputHandler(IMove *controller, IGame *game, InputSource &inputSource);
 
-    Command *handleInput();
+    std::pair<char, Command *> handleInput();
 
     void loadCommandsFromFile(const std::string &filename);
 

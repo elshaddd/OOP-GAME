@@ -1,6 +1,6 @@
 #include "CommandExecuted.h"
 
-CommandExecuted::CommandExecuted(char key, Command *command) {}
+CommandExecuted::CommandExecuted(char key, Command *command) : key(key), command(command) {}
 
 char CommandExecuted::getKey() const
 {

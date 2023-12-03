@@ -21,3 +21,8 @@ std::ofstream &OutputFile::getFile()
 {
     return file;
 }
+
+void OutputFile::writeData(std::string &data)
+{
+    file << data;
+}

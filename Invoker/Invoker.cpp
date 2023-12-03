@@ -1,7 +1,24 @@
 #include "Invoker.h"
 
-void Invoker::call(Command *command)
+Invoker::Invoker(MessageDispatcher *dispatcher) : dispatcher(dispatcher) {}
+
+void Invoker::call(std::pair<char, Command *> pair)
 {
-    if (command)
-        command->execute();
+    if (pair.second)
+    {
+        pair.second->execute();
+        if (dispatcher != nullptr)
+        {
+            CommandExecuted event(pair.first, pair.second);
+            dispatcher->dispatchEvent(event);
+        }
+    }
+    else
+    {
+        if (dispatcher != nullptr)
+        {
+            CommandFailed event(pair.first);
+            dispatcher->dispatchEvent(event);
+        }
+    }
 }

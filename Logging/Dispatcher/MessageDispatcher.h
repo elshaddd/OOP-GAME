@@ -9,12 +9,14 @@
 class MessageDispatcher
 {
 private:
-    std::vector<std::shared_ptr<Observer>> observers;
+    std::vector<Observer *> observers;
 
 public:
-    void addObserver(std::shared_ptr<Observer> observer);
+    void addObserver(Observer *observer);
 
     void dispatchEvent(Message &event);
+
+    ~MessageDispatcher();
 };
 
 #endif
