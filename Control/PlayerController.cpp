@@ -74,12 +74,12 @@ std::pair<int, int> PlayerController::getCoordinates()
     return coordinates;
 }
 
-void PlayerController::attach(IControllerObserver *obs)
+void PlayerController::setMediator(Mediator *mediator)
 {
-    view = obs;
+    this->mediator = mediator;
 }
 
 void PlayerController::notify()
 {
-    view->update();
+    mediator->update(MOVEMENT);
 }

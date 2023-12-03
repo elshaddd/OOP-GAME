@@ -7,8 +7,8 @@
 #include "../Input/InputSource/InputSource.h"
 #include "../Input/InputSource/ConsoleInputSource/ConsoleInputSource.h"
 #include "../Util/Display.h"
-#include "../Observer/ControllerObserver.h"
-#include "../Observer/GameObserver.h"
+
+#include "../Mediator/GameMediator.h"
 
 class GameClient
 {

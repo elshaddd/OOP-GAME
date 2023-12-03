@@ -11,10 +11,19 @@ void FileChecker::checkFile(const std::string &filename)
     std::map<std::string, std::string> key_command_map;
     std::map<std::string, std::string> command_key_map;
 
-    FileWrapper fileWrapper(filename);
+    FileWrapper *fileWrapper;
+    try
+    {
+        fileWrapper = new FileWrapper(filename);
+    }
+    catch (const std::runtime_error &error)
+    {
+        std::cout << "Config file error: " << error.what() << '\n';
+        exit(0);
+    }
     std::string key, command;
 
-    while (fileWrapper.readData(key, command))
+    while (fileWrapper->readData(key, command))
     {
         if (key_command_map.find(key) != key_command_map.end())
         {

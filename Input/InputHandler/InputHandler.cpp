@@ -8,7 +8,15 @@ InputHandler::InputHandler(IMove *controller, IGame *game, InputSource &inputSou
 void InputHandler::loadCommandsFromFile(const std::string &filename)
 {
     FileChecker checker;
-    checker.checkFile(filename);
+    try
+    {
+        checker.checkFile(filename);
+    }
+    catch (const std::runtime_error &error)
+    {
+        std::cout << "Invalid config error: " << error.what();
+        exit(0);
+    }
     FileWrapper fileWrapper(filename);
     char key;
     std::string command;

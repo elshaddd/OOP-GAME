@@ -6,9 +6,10 @@
 #include "../Field/Field.h"
 #include "../Control/PlayerController.h"
 #include "../Generators/FieldGenerator.h"
-#include "../Observer/IGameObserver.h"
+#include "../Mediator/Component.h"
+#include "../Mediator/Mediator.h"
 
-class Game : public IGame
+class Game : public IGame, public Component
 {
 private:
     GameField &gameField;
@@ -17,7 +18,7 @@ private:
     int level = 1;
     Status gameStatus = MENU;
 
-    IGameObserver *view;
+    Mediator *mediator;
 
 public:
     Game(Player &player, GameField &gameField, PlayerController &controller);
@@ -50,9 +51,9 @@ public:
 
     void setStatus(Status newStatus);
 
-    void attach(IGameObserver *obs);
-
-    void notify();
+    void setMediator(Mediator *mediator) override;
+    
+    void notify() override;
 };
 
 #endif

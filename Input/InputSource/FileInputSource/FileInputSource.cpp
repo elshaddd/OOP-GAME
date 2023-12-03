@@ -1,6 +1,19 @@
 #include "FileInputSource.h"
 
-FileInputSource::FileInputSource(const std::string &filename) : file(filename) {}
+FileInputSource::FileInputSource(const std::string &filename)
+{
+    FileWrapper *file;
+    try
+    {
+        file = new FileWrapper(filename);
+    }
+    catch (const std::runtime_error &error)
+    {
+        std::cout << "Input file error: " << error.what();
+        exit(0);
+    }
+    this->file = file;
+}
 
 /**
  * The function `getInput` reads a character from a file and returns it, or returns '\0' if the end of
@@ -12,7 +25,7 @@ FileInputSource::FileInputSource(const std::string &filename) : file(filename) {
 char FileInputSource::getInput()
 {
     char key;
-    if (file.readData(key))
+    if (file->readData(key))
     {
         return key;
     }

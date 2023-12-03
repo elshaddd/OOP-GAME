@@ -24,7 +24,14 @@ enum Status
     RUN,
     OVER,
     WIN,
-    EXIT
+    EXIT,
+    PASS
+};
+
+enum Components
+{
+    GAME,
+    MOVEMENT
 };
 
 #endif

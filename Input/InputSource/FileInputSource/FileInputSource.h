@@ -6,7 +6,7 @@
 class FileInputSource : public InputSource
 {
 private:
-    FileWrapper file;
+    FileWrapper *file;
 
 public:
     FileInputSource(const std::string &filename);

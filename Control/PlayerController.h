@@ -3,17 +3,18 @@
 #include "IMove.h"
 #include "../Player/Player.h"
 #include "../Field/Field.h"
-#include "../Observer/IControllerObserver.h"
+#include "../Mediator/Mediator.h"
+#include "../Mediator/Component.h"
 #include <utility>
 #include <vector>
 
-class PlayerController : public IMove
+class PlayerController : public IMove, public Component
 {
 private:
     GameField &gameFieldRef;
     std::pair<int, int> coordinates;
 
-    IControllerObserver *view;
+    Mediator *mediator;
 
 public:
     Player &playerRef;
@@ -32,9 +33,9 @@ public:
 
     std::pair<int, int> getCoordinates();
 
-    void attach(IControllerObserver *obs);
-
-    void notify();
+    void setMediator(Mediator *mediator) override;
+    
+    void notify() override;
 
     // PlayerController(const PlayerController &other);
 

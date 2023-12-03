@@ -18,8 +18,7 @@ void GameClient::loop()
 {
     display.displayMenu();
     Invoker invoker;
-    GameObserver obs1(&game, &display);
-    PlayerControllerObserver obs2(&controller, &display);
+    GameMediator mediator(&game, &controller, &display);
     while (game.getStatus() != EXIT)
     {
         invoker.call(inputHandler.handleInput());

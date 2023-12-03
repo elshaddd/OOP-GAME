@@ -15,6 +15,7 @@ void Game::leveling()
     FieldGenerator generator(gameField);
     generator.generateField();
     controller.setCoordinates({1, 1});
+    setStatus(RUN);
 }
 
 void Game::start()
@@ -96,15 +97,23 @@ void Game::reset()
 void Game::updateStatus()
 {
     if (player.getHealth() == 0)
+    {
+        reset();
         setStatus(OVER);
+    }
     else if (controller.getCoordinates() == gameField.getExit())
+    {
         if (level == 4)
         {
             reset();
             setStatus(WIN);
         }
         else
+        {
+            setStatus(PASS);
             nextLevel();
+        }
+    }
 }
 
 Status Game::getStatus()
@@ -118,12 +127,12 @@ void Game::setStatus(Status newStatus)
     notify();
 }
 
-void Game::attach(IGameObserver *obs)
+void Game::setMediator(Mediator *mediator)
 {
-    view = obs;
+    this->mediator = mediator;
 }
 
 void Game::notify()
 {
-    view->update();
+    mediator->update(GAME);
 }
