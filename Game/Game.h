@@ -8,6 +8,10 @@
 #include "../Generators/FieldGenerator.h"
 #include "../Mediator/Component.h"
 #include "../Mediator/Mediator.h"
+#include "../Logging/Dispatcher/MessageDispatcher.h"
+#include "../Logging/Message/Game/StartMessage.h"
+#include "../Logging/Message/Player/WinMessage.h"
+#include "../Logging/Message/PlayerController/LoseMessage.h"
 
 class Game : public IGame, public Component
 {
@@ -19,9 +23,10 @@ private:
     Status gameStatus = MENU;
 
     Mediator *mediator;
+    MessageDispatcher *dispatcher;
 
 public:
-    Game(Player &player, GameField &gameField, PlayerController &controller);
+    Game(Player &player, GameField &gameField, PlayerController &controller, MessageDispatcher *dispatcher);
 
     void leveling();
 

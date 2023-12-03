@@ -1,6 +1,6 @@
 #include "InputHandler.h"
 
-InputHandler::InputHandler(IMove *controller, IGame *game, InputSource &inputSource) : controller(controller), game(game), inputSource(inputSource)
+InputHandler::InputHandler(IMove *controller, IGame *game, InputSource &inputSource, MessageDispatcher *dispatcher) : controller(controller), game(game), inputSource(inputSource), dispatcher(dispatcher)
 {
     loadCommandsFromFile("keys.txt");
 }
@@ -75,7 +75,17 @@ Command *InputHandler::handleInput()
     char key = inputSource.getInput();
     if (keyToCommandMap.find(key) != keyToCommandMap.end())
     {
+        if (dispatcher != nullptr)
+        {
+            CommandExecuted event(key, keyToCommandMap[key]);
+            dispatcher->dispatchEvent(event);
+        }
         return keyToCommandMap[key];
+    }
+    if (dispatcher != nullptr)
+    {
+        CommandFailed event(key);
+        dispatcher->dispatchEvent(event);
     }
     return nullptr;
 }

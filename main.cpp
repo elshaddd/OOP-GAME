@@ -8,12 +8,31 @@
 #include "Input/InputSource/ConsoleInputSource/ConsoleInputSource.h"
 #include "Input/InputSource/FileInputSource/FileInputSource.h"
 #include "GameClient/GameClient.h"
+#include "Logging/Logger/ConsoleLogger/ConsoleLogger.h"
+#include "Logging/Logger/FileLogger/FileLogger.h"
+#include "Logging/Dispatcher/MessageDispatcher.h"
 #include <unistd.h>
 
 int main()
 {
-    // InputSource *fileInput = new FileInputSource("/home/elshad/OOP/game/com.txt");
-    // GameClient gameC(fileInput);
-    GameClient gameC;
+    MessageDispatcher dispatcher;
+    std::string output;
+    std::cout << "Where do you want to output messages? (file, console, both)" << std::endl;
+    std::cin >> output;
+    if (output == "file" || output == "both")
+    {
+        dispatcher.addObserver(std::make_shared<FileLogger>("log.txt"));
+    }
+    if (output == "console" || output == "both")
+    {
+        dispatcher.addObserver(std::make_shared<ConsoleLogger>());
+    }
+    if (output == "nowhere")
+    {
+        GameClient gameC;
+        gameC.loop();
+        return 0;
+    }
+    GameClient gameC(&dispatcher);
     gameC.loop();
 }

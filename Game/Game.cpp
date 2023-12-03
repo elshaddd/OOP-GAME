@@ -1,6 +1,6 @@
 #include "Game.h"
 
-Game::Game(Player &player, GameField &gameField, PlayerController &controller) : player(player), gameField(gameField), controller(controller) {}
+Game::Game(Player &player, GameField &gameField, PlayerController &controller, MessageDispatcher *dispatcher) : player(player), gameField(gameField), controller(controller), dispatcher(dispatcher) {}
 
 void Game::leveling()
 {
@@ -25,6 +25,11 @@ void Game::start()
         player = Player();
         leveling();
         setStatus(RUN);
+    }
+    if (dispatcher != nullptr)
+    {
+        StartMessage event(gameField);
+        dispatcher->dispatchEvent(event);
     }
 }
 
@@ -100,6 +105,11 @@ void Game::updateStatus()
     {
         reset();
         setStatus(OVER);
+        if (dispatcher != nullptr)
+        {
+            LoseMessage event(controller);
+            dispatcher->dispatchEvent(event);
+        }
     }
     else if (controller.getCoordinates() == gameField.getExit())
     {
@@ -107,6 +117,11 @@ void Game::updateStatus()
         {
             reset();
             setStatus(WIN);
+            if (dispatcher != nullptr)
+            {
+                WinMessage event(player);
+                dispatcher->dispatchEvent(event);
+            }
         }
         else
         {

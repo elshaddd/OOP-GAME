@@ -9,6 +9,7 @@
 #include "../Util/Display.h"
 
 #include "../Mediator/GameMediator.h"
+#include "../Logging/Dispatcher/MessageDispatcher.h"
 
 class GameClient
 {
@@ -21,7 +22,7 @@ private:
     Display display;
 
 public:
-    GameClient(InputSource *inputSource = new ConsoleInputSource);
+    GameClient(MessageDispatcher *dispatcher = nullptr, InputSource *inputSource = new ConsoleInputSource);
 
     void loop();
 };

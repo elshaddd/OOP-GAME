@@ -17,6 +17,9 @@
 #include "../InputSource/InputSource.h"
 #include "../../FileWrapper/FileWrapper.h"
 #include "FileChecker.h"
+#include "../../Logging/Dispatcher/MessageDispatcher.h"
+#include "../../Logging/Message/Command/CommandExecuted.h"
+#include "../../Logging/Message/Command/CommandFailed.h"
 
 class InputHandler
 {
@@ -25,9 +28,10 @@ private:
     IMove *controller;
     IGame *game;
     InputSource &inputSource;
+    MessageDispatcher *dispatcher;
 
 public:
-    InputHandler(IMove *controller, IGame *game, InputSource &inputSource);
+    InputHandler(IMove *controller, IGame *game, InputSource &inputSource, MessageDispatcher *dispatcher);
 
     Command *handleInput();
 
