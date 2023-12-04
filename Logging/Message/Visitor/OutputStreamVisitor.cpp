@@ -9,8 +9,7 @@ void OutputStreamVisitor::visit(CommandExecuted &msg)
 {
     int status;
     std::unique_ptr<char, void (*)(void *)> res{
-        abi::__cxa_demangle(typeid(*msg.getCommand()).name(), NULL, NULL, &status),
-        std::free};
+        abi::__cxa_demangle(typeid(*msg.getCommand()).name(), NULL, NULL, &status), std::free};
     os << "Command executed. Input: " << msg.getKey() << ", Command: " << (status == 0 ? res.get() : "Command");
 }
 

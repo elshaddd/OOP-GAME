@@ -15,14 +15,14 @@ void Game::leveling()
     FieldGenerator generator(gameField);
     generator.generateField();
     controller.setCoordinates({1, 1});
-    setStatus(RUN);
+    if (gameStatus == RUN)
+        setStatus(RUN);
 }
 
 void Game::start()
 {
     if (gameStatus == MENU)
     {
-        player = Player();
         leveling();
         setStatus(RUN);
         if (dispatcher != nullptr)
@@ -103,25 +103,25 @@ void Game::updateStatus()
 {
     if (player.getHealth() == 0)
     {
-        reset();
         setStatus(OVER);
         if (dispatcher != nullptr)
         {
             LoseMessage event(controller);
             dispatcher->dispatchEvent(event);
         }
+        reset();
     }
     else if (controller.getCoordinates() == gameField.getExit())
     {
         if (level == 1)
         {
-            reset();
             setStatus(WIN);
             if (dispatcher != nullptr)
             {
                 WinMessage event(player);
                 dispatcher->dispatchEvent(event);
             }
+            reset();
         }
         else
         {

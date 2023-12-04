@@ -7,7 +7,7 @@ void ExitCommand::execute()
     game->exit();
 }
 
-// Command *ExitCommand::clone()
-// {
-//     return new ExitCommand(*this);
-// }
+std::vector<Status> ExitCommand::getValidation()
+{
+    return std::vector<Status> {MENU};
+}

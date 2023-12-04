@@ -6,3 +6,8 @@ void SelectCommand::execute()
 {
     game->select();
 }
+
+std::vector<Status> SelectCommand::getValidation()
+{
+    return std::vector<Status> {MENU};
+}

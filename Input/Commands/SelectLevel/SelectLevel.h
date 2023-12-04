@@ -14,6 +14,8 @@ public:
     SelectLevelCommand(IGame *game, int level);
 
     void execute() override;
+
+    std::vector<Status> getValidation() override;
 };
 
 #endif

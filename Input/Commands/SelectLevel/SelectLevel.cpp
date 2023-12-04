@@ -6,3 +6,8 @@ void SelectLevelCommand::execute()
 {
     game->selectLevel(level);
 }
+
+std::vector<Status> SelectLevelCommand::getValidation()
+{
+    return std::vector<Status> {SELECTING};
+}

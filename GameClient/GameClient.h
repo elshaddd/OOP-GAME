@@ -26,6 +26,8 @@ public:
     GameClient(MessageDispatcher *dispatcher = nullptr, InputSource *inputSource = new ConsoleInputSource);
 
     void loop();
+
+    bool checkValidation(std::vector<Status> vector);
 };
 
 #endif

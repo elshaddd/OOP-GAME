@@ -12,7 +12,7 @@ private:
 public:
     MoveCommand(IMove *controller, Direction direction);
     void execute() override;
-    // Command *clone() override;
+    std::vector<Status> getValidation() override;
 };
 
 #endif

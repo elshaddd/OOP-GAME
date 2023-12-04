@@ -13,6 +13,8 @@ public:
     MenuCommand(IGame *game);
 
     void execute() override;
+
+    std::vector<Status> getValidation() override;
 };
 
 #endif

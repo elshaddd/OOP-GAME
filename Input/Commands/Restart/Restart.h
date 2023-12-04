@@ -13,6 +13,8 @@ public:
     RestartCommand(IGame *game);
 
     void execute() override;
+
+    std::vector<Status> getValidation() override;
 };
 
 #endif

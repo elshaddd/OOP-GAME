@@ -6,3 +6,8 @@ void MoveCommand::execute()
 {
     controller->movePlayer(direction);
 }
+
+std::vector<Status> MoveCommand::getValidation()
+{
+    return std::vector<Status> {RUN};
+}
