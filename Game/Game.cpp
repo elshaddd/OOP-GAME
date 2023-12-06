@@ -113,7 +113,7 @@ void Game::updateStatus()
     }
     else if (controller.getCoordinates() == gameField.getExit())
     {
-        if (level == 1)
+        if (level == 1) // FOR TEST
         {
             setStatus(WIN);
             if (dispatcher != nullptr)

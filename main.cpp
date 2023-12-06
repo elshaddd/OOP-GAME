@@ -17,7 +17,7 @@ int main()
 {
     MessageDispatcher dispatcher;
     std::string output;
-    std::cout << "Where do you want to output messages? (file, console, both)" << std::endl;
+    std::cout << "Where do you want to output messages? (file, console, both, nowhere)" << std::endl;
     std::cin >> output;
     if (output == "file" || output == "both")
     {

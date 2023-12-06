@@ -18,5 +18,4 @@ FileLogger::FileLogger(const std::string &filename)
 void FileLogger::onEvent(Message &event)
 {
     file->getFile() << event << std::endl;
-    // file->writeData()
 }
