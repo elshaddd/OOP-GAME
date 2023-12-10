@@ -4,3 +4,6 @@
 *.o
 *.html
 com.txt
+build
+game
+log.txt
